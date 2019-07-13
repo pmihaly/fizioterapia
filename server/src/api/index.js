@@ -1,6 +1,8 @@
 import { Router } from 'express'
 import user from './user'
 import auth from './auth'
+import training from './training'
+import exercise from './exercise'
 
 const router = new Router()
 
@@ -29,5 +31,7 @@ const router = new Router()
  */
 router.use('/users', user)
 router.use('/auth', auth)
+router.use('/trainings', training)
+router.use('/exercises', exercise)
 
 export default router

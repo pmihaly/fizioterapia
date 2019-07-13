@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start-server": "npm run start --prefix server",
+    "start-trainer": "npm run start --prefix trainer-site",
+    "dev": "npx concurrently 'npm run start-server' 'npm run start-trainer'",
+    "preinstall": "npx concurrently 'npm install --prefix server' 'npm install --prefix trainer-site' "
+  },
+  "dependencies": {
+    "concurrently": "^4.1.1"
+  }
+}

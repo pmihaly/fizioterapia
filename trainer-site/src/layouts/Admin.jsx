@@ -32,9 +32,6 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import routes from "routes.js";
 
-
-
-
 let ps;
 
 const switchRoutes = (
@@ -114,7 +111,7 @@ class Dashboard extends React.Component {
       <div className={classes.wrapper}>
         <Sidebar
           routes={routes}
-          logoText={"Creative Tim"}
+          logoText={"Fizioterápia"}
           logo={logo}
           image={this.state.image}
           handleDrawerToggle={this.handleDrawerToggle}

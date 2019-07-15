@@ -15,33 +15,32 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import PropTypes from "prop-types";
-import { Switch, Route, Redirect } from "react-router-dom";
+// @material-ui/core components
+import withStyles from "@material-ui/core/styles/withStyles";
+import logo from "assets/img/reactlogo.png";
+import image from "assets/img/sidebar-2.jpg";
+import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
+import Footer from "components/Footer/Footer.jsx";
+// core components
+import Navbar from "components/Navbars/Navbar.jsx";
+import Sidebar from "components/Sidebar/Sidebar.jsx";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-// core components
-import Navbar from "components/Navbars/Navbar.jsx";
-import Footer from "components/Footer/Footer.jsx";
-import Sidebar from "components/Sidebar/Sidebar.jsx";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
-
+import PropTypes from "prop-types";
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 import routes from "routes.js";
 
-import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
-import image from "assets/img/sidebar-2.jpg";
-import logo from "assets/img/reactlogo.png";
+
 
 let ps;
 
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
+      if (prop.layout === "/tornász") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -52,7 +51,7 @@ const switchRoutes = (
       }
       return null;
     })}
-    <Redirect from="/admin" to="/admin/dashboard" />
+    <Redirect from="/tornász" to="/tornász/vezérlőpult" />
   </Switch>
 );
 
@@ -82,7 +81,7 @@ class Dashboard extends React.Component {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
   getRoute() {
-    return window.location.pathname !== "/admin/maps";
+    return window.location.pathname !== "/tornász/maps";
   }
   resizeFunction = () => {
     if (window.innerWidth >= 960) {
@@ -138,14 +137,6 @@ class Dashboard extends React.Component {
             <div className={classes.map}>{switchRoutes}</div>
           )}
           {this.getRoute() ? <Footer /> : null}
-          <FixedPlugin
-            handleImageClick={this.handleImageClick}
-            handleColorClick={this.handleColorClick}
-            bgColor={this.state["color"]}
-            bgImage={this.state["image"]}
-            handleFixedClick={this.handleFixedClick}
-            fixedClasses={this.state.fixedClasses}
-          />
         </div>
       </div>
     );

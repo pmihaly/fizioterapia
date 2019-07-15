@@ -82,7 +82,7 @@ class RTL extends React.Component {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
   getRoute() {
-    return window.location.pathname !== "/admin/maps";
+    return window.location.pathname !== "/tornász/maps";
   }
   resizeFunction = () => {
     if (window.innerWidth >= 960) {

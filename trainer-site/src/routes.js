@@ -6,7 +6,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import TableList from "views/TableList/TableList.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
-import Notifications from "views/Notifications/Notifications.jsx";
+import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
 
 const dashboardRoutes = [
   {
@@ -38,7 +38,7 @@ const dashboardRoutes = [
     name: "Bejelentkezés",
     rtlName: "التطور للاحترافية",
     icon: AccountCircle,
-    component: Notifications,
+    component: UpgradeToPro,
     layout: "/tornász"
   }
 ];

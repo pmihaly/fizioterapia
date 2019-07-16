@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { Component } from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // @material-ui/core components
@@ -16,6 +15,143 @@ import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+
+import { connect } from "react-redux";
+import { logIn, register } from "../../actions/AuthActions";
+
+class UpgradeToPro extends Component {
+  static propTypes = {
+    classes: PropTypes.object
+  };
+
+  render() {
+    // this.props.Register({ email: "m@m.com", password: "jdkfjd" });
+    return (
+      <GridContainer justify="center">
+        <GridItem xs={12} sm={12} md={8}>
+          <Card>
+            <CardHeader color="info">
+              <h4 className={this.props.classes.cardTitleWhite}>
+                Material Dashboard PRO React
+              </h4>
+              <p className={this.props.classes.cardCategoryWhite}>
+                Are you looking for more components? Please check our Premium
+                Version of Material Dashboard Angular.
+              </p>
+            </CardHeader>
+            <CardBody>
+              <div className={this.props.classes.tableUpgradeWrapper}>
+                <table className={this.props.classes.table}>
+                  <thead>
+                    <tr>
+                      <th />
+                      <th className={this.props.classes.center}>Free</th>
+                      <th className={this.props.classes.center}>PRO</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Components</td>
+                      <td className={this.props.classes.center}>30</td>
+                      <td className={this.props.classes.center}>200</td>
+                    </tr>
+                    <tr>
+                      <td>Plugins</td>
+                      <td className={this.props.classes.center}>2</td>
+                      <td className={this.props.classes.center}>10</td>
+                    </tr>
+                    <tr>
+                      <td>Example Pages</td>
+                      <td className={this.props.classes.center}>7</td>
+                      <td className={this.props.classes.center}>28</td>
+                    </tr>
+                    <tr>
+                      <td>Login, Register, Pricing, Lock Pages</td>
+                      <td className={this.props.classes.center}>
+                        <Danger>
+                          <Close />
+                        </Danger>
+                      </td>
+                      <td className={this.props.classes.center}>
+                        <Success>
+                          <Check />
+                        </Success>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        ReactTables, ReactVectorMap, ReactSweetAlert, Wizard,
+                        Validation, ReactBigCalendar etc...
+                      </td>
+                      <td className={this.props.classes.center}>
+                        <Danger>
+                          <Close />
+                        </Danger>
+                      </td>
+                      <td className={this.props.classes.center}>
+                        <Success>
+                          <Check />
+                        </Success>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Mini Sidebar</td>
+                      <td className={this.props.classes.center}>
+                        <Danger>
+                          <Close />
+                        </Danger>
+                      </td>
+                      <td className={this.props.classes.center}>
+                        <Success>
+                          <Check />
+                        </Success>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Premium Support</td>
+                      <td className={this.props.classes.center}>
+                        <Danger>
+                          <Close />
+                        </Danger>
+                      </td>
+                      <td className={this.props.classes.center}>
+                        <Success>
+                          <Check />
+                        </Success>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td />
+                      <td className={this.props.classes.center}>Free</td>
+                      <td className={this.props.classes.center}>Just $59</td>
+                    </tr>
+                    <tr>
+                      <td />
+                      <td className={this.props.classes.center}>
+                        <Button round disabled>
+                          Current Version
+                        </Button>
+                      </td>
+                      <td className={this.props.classes.center}>
+                        <Button
+                          round
+                          color="danger"
+                          href="https://www.creative-tim.com/product/material-dashboard-pro-react?ref=mdr-upgrade-live"
+                        >
+                          Upgrade to Pro
+                        </Button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
+    );
+  }
+}
 
 const styles = {
   cardCategoryWhite: {
@@ -84,136 +220,20 @@ const styles = {
   }
 };
 
-function UpgradeToPro(props) {
-  const { classes } = props;
-  return (
-    <GridContainer justify="center">
-      <GridItem xs={12} sm={12} md={8}>
-        <Card>
-          <CardHeader color="info">
-            <h4 className={classes.cardTitleWhite}>
-              Material Dashboard PRO React
-            </h4>
-            <p className={classes.cardCategoryWhite}>
-              Are you looking for more components? Please check our Premium
-              Version of Material Dashboard Angular.
-            </p>
-          </CardHeader>
-          <CardBody>
-            <div className={classes.tableUpgradeWrapper}>
-              <table className={classes.table}>
-                <thead>
-                  <tr>
-                    <th />
-                    <th className={classes.center}>Free</th>
-                    <th className={classes.center}>PRO</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Components</td>
-                    <td className={classes.center}>30</td>
-                    <td className={classes.center}>200</td>
-                  </tr>
-                  <tr>
-                    <td>Plugins</td>
-                    <td className={classes.center}>2</td>
-                    <td className={classes.center}>10</td>
-                  </tr>
-                  <tr>
-                    <td>Example Pages</td>
-                    <td className={classes.center}>7</td>
-                    <td className={classes.center}>28</td>
-                  </tr>
-                  <tr>
-                    <td>Login, Register, Pricing, Lock Pages</td>
-                    <td className={classes.center}>
-                      <Danger>
-                        <Close />
-                      </Danger>
-                    </td>
-                    <td className={classes.center}>
-                      <Success>
-                        <Check />
-                      </Success>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      ReactTables, ReactVectorMap, ReactSweetAlert, Wizard,
-                      Validation, ReactBigCalendar etc...
-                    </td>
-                    <td className={classes.center}>
-                      <Danger>
-                        <Close />
-                      </Danger>
-                    </td>
-                    <td className={classes.center}>
-                      <Success>
-                        <Check />
-                      </Success>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Mini Sidebar</td>
-                    <td className={classes.center}>
-                      <Danger>
-                        <Close />
-                      </Danger>
-                    </td>
-                    <td className={classes.center}>
-                      <Success>
-                        <Check />
-                      </Success>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Premium Support</td>
-                    <td className={classes.center}>
-                      <Danger>
-                        <Close />
-                      </Danger>
-                    </td>
-                    <td className={classes.center}>
-                      <Success>
-                        <Check />
-                      </Success>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td />
-                    <td className={classes.center}>Free</td>
-                    <td className={classes.center}>Just $59</td>
-                  </tr>
-                  <tr>
-                    <td />
-                    <td className={classes.center}>
-                      <Button round disabled>
-                        Current Version
-                      </Button>
-                    </td>
-                    <td className={classes.center}>
-                      <Button
-                        round
-                        color="danger"
-                        href="https://www.creative-tim.com/product/material-dashboard-pro-react?ref=mdr-upgrade-live"
-                      >
-                        Upgrade to Pro
-                      </Button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </CardBody>
-        </Card>
-      </GridItem>
-    </GridContainer>
-  );
-}
+UpgradeToPro = withStyles(styles)(UpgradeToPro);
 
-UpgradeToPro.propTypes = {
-  classes: PropTypes.object
+const mapStateToProps = (state, props) => {
+  return {
+    user: state.authenticatedUser
+  };
 };
 
-export default withStyles(styles)(UpgradeToPro);
+const mapActionsToProps = {
+  LogIn: logIn,
+  Register: register
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(UpgradeToPro);

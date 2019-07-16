@@ -1,11 +1,12 @@
-
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Group from "@material-ui/icons/Group";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import TableList from "views/TableList/TableList.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
+import Notifications from "views/Notifications/Notifications.jsx";
 
 const dashboardRoutes = [
   {
@@ -30,6 +31,14 @@ const dashboardRoutes = [
     rtlName: "قائمة الجدول",
     icon: Group,
     component: TableList,
+    layout: "/tornász"
+  },
+  {
+    path: "/bejelentkezés",
+    name: "Bejelentkezés",
+    rtlName: "التطور للاحترافية",
+    icon: AccountCircle,
+    component: Notifications,
     layout: "/tornász"
   }
 ];

@@ -1,21 +1,15 @@
-import React, { Component } from "react";
-// nodejs library to set properties for components
-import PropTypes from "prop-types";
-// @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-// @material-ui/icons
-import Close from "@material-ui/icons/Close";
-import Check from "@material-ui/icons/Check";
-// core components
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
-import Danger from "components/Typography/Danger.jsx";
-import Success from "components/Typography/Success.jsx";
-import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
+import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-
+import CardFooter from "components/Card/CardFooter.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
+import Button from "components/CustomButtons/Button.jsx";
+import CustomInput from "components/CustomInput/CustomInput";
+import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from "components/Grid/GridItem.jsx";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logIn, register } from "../../actions/AuthActions";
 
@@ -27,124 +21,99 @@ class UpgradeToPro extends Component {
   render() {
     // this.props.Register({ email: "m@m.com", password: "jdkfjd" });
     return (
-      <GridContainer justify="center">
+      <GridContainer>
         <GridItem xs={12} sm={12} md={8}>
           <Card>
-            <CardHeader color="info">
+            <CardHeader color="primary">
               <h4 className={this.props.classes.cardTitleWhite}>
-                Material Dashboard PRO React
+                Regisztráció
               </h4>
               <p className={this.props.classes.cardCategoryWhite}>
-                Are you looking for more components? Please check our Premium
-                Version of Material Dashboard Angular.
+                Hozz létre egy új tornász fiókot
               </p>
             </CardHeader>
             <CardBody>
-              <div className={this.props.classes.tableUpgradeWrapper}>
-                <table className={this.props.classes.table}>
-                  <thead>
-                    <tr>
-                      <th />
-                      <th className={this.props.classes.center}>Free</th>
-                      <th className={this.props.classes.center}>PRO</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Components</td>
-                      <td className={this.props.classes.center}>30</td>
-                      <td className={this.props.classes.center}>200</td>
-                    </tr>
-                    <tr>
-                      <td>Plugins</td>
-                      <td className={this.props.classes.center}>2</td>
-                      <td className={this.props.classes.center}>10</td>
-                    </tr>
-                    <tr>
-                      <td>Example Pages</td>
-                      <td className={this.props.classes.center}>7</td>
-                      <td className={this.props.classes.center}>28</td>
-                    </tr>
-                    <tr>
-                      <td>Login, Register, Pricing, Lock Pages</td>
-                      <td className={this.props.classes.center}>
-                        <Danger>
-                          <Close />
-                        </Danger>
-                      </td>
-                      <td className={this.props.classes.center}>
-                        <Success>
-                          <Check />
-                        </Success>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        ReactTables, ReactVectorMap, ReactSweetAlert, Wizard,
-                        Validation, ReactBigCalendar etc...
-                      </td>
-                      <td className={this.props.classes.center}>
-                        <Danger>
-                          <Close />
-                        </Danger>
-                      </td>
-                      <td className={this.props.classes.center}>
-                        <Success>
-                          <Check />
-                        </Success>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Mini Sidebar</td>
-                      <td className={this.props.classes.center}>
-                        <Danger>
-                          <Close />
-                        </Danger>
-                      </td>
-                      <td className={this.props.classes.center}>
-                        <Success>
-                          <Check />
-                        </Success>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Premium Support</td>
-                      <td className={this.props.classes.center}>
-                        <Danger>
-                          <Close />
-                        </Danger>
-                      </td>
-                      <td className={this.props.classes.center}>
-                        <Success>
-                          <Check />
-                        </Success>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td />
-                      <td className={this.props.classes.center}>Free</td>
-                      <td className={this.props.classes.center}>Just $59</td>
-                    </tr>
-                    <tr>
-                      <td />
-                      <td className={this.props.classes.center}>
-                        <Button round disabled>
-                          Current Version
-                        </Button>
-                      </td>
-                      <td className={this.props.classes.center}>
-                        <Button
-                          round
-                          color="danger"
-                          href="https://www.creative-tim.com/product/material-dashboard-pro-react?ref=mdr-upgrade-live"
-                        >
-                          Upgrade to Pro
-                        </Button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={5}>
+                  <CustomInput
+                    labelText="Email cím"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      type: "email"
+                    }}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={5}>
+                  <CustomInput
+                    labelText="Megjelenített név"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                  />
+                </GridItem>
+              </GridContainer>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={5}>
+                  <CustomInput
+                    labelText="Jelszó"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{ type: "password" }}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={5}>
+                  <CustomInput
+                    labelText="Jelszó megerősítése"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{ type: "password" }}
+                  />
+                </GridItem>
+              </GridContainer>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                  <CustomInput
+                    labelText="Adj meg egy rövid leírást magadról, hogy könnyebben megtaláljanak a páciensek (Opcionális)"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      multiline: true,
+                      rows: 5
+                    }}
+                  />
+                </GridItem>
+              </GridContainer>
+            </CardBody>
+            <CardFooter>
+              <Button color="primary">Regisztráció</Button>
+            </CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={12} md={4}>
+          <Card profile>
+            <CardAvatar profile>
+              <a href="#pablo" onClick={e => e.preventDefault()}>
+                <img src={require("assets/img/faces/marc.jpg")} alt="..." />
+              </a>
+            </CardAvatar>
+            <CardBody profile>
+              <h6 className={this.props.classes.cardCategory}>
+                CEO / CO-FOUNDER
+              </h6>
+              <h4 className={this.props.classes.cardTitle}>Alec Thompson</h4>
+              <p className={this.props.classes.description}>
+                Don{"'"}t be scared of the truth because we need to restart the
+                human foundation in truth And I love you like Kanye loves Kanye
+                I love Rick Owens’ bed design but the back is...
+              </p>
+              <Button color="primary" round>
+                Follow
+              </Button>
             </CardBody>
           </Card>
         </GridItem>

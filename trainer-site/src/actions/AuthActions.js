@@ -5,16 +5,16 @@ export const REGISTER = "REGISTER";
 
 const address = require("../../package.json").proxy;
 
-export const logIn = userDetails => dispatch => {
+export const logIn = ({ email, password }) => dispatch => {
   axios
-    .post(`${address}/auth`, {}, { auth: userDetails })
-    .then(res => dispatch(res))
+    .post(`${address}/auth`, {}, { auth: { username: email, password } })
+    .then(res => dispatch({ type: LOG_IN, payload: res.data }))
     .catch(err => console.log(err));
 };
 
 export const register = userDetails => dispatch => {
   axios
     .post(`${address}/users`, userDetails)
-    .then(res => dispatch(res))
+    .then(res => dispatch({ type: REGISTER, payload: res.data }))
     .catch(err => console.log(err));
 };

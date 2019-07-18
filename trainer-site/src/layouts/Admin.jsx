@@ -1,7 +1,7 @@
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import logo from "assets/img/reactlogo.png";
+import logo from "assets/img/logo.png";
 import image from "assets/img/sidebar-2.jpg";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import Footer from "components/Footer/Footer.jsx";

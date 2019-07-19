@@ -14,12 +14,36 @@ import { connect } from "react-redux";
 import { logIn, register } from "../../actions/AuthActions";
 
 class UpgradeToPro extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: "",
+      name: "",
+      password: "",
+      passwordValidation: "",
+      description: ""
+    };
+  }
   static propTypes = {
     classes: PropTypes.object
   };
 
+  validateAndRegister = () => {
+    this.props.Register({
+      email: this.state.email,
+      name: this.state.name,
+      password: this.state.password,
+      description: this.state.description
+    });
+  };
+
+  handleChange = e => {
+    console.log("handleChange");
+    this.setState({ [e.target.id]: e.target.value });
+  };
+
   render() {
-    // this.props.Register({ email: "m@m.com", password: "jdkfjd" });
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={8}>
@@ -37,11 +61,13 @@ class UpgradeToPro extends Component {
                 <GridItem xs={12} sm={12} md={5}>
                   <CustomInput
                     labelText="Email cím"
+                    id="email"
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
-                      type: "email"
+                      type: "email",
+                      onChange: this.handleChange
                     }}
                   />
                 </GridItem>
@@ -50,6 +76,10 @@ class UpgradeToPro extends Component {
                     labelText="Megjelenített név"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    id="name"
+                    inputProps={{
+                      onChange: this.handleChange
                     }}
                   />
                 </GridItem>
@@ -61,7 +91,11 @@ class UpgradeToPro extends Component {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputProps={{ type: "password" }}
+                    id="password"
+                    inputProps={{
+                      type: "password",
+                      onChange: this.handleChange
+                    }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={5}>
@@ -70,7 +104,11 @@ class UpgradeToPro extends Component {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputProps={{ type: "password" }}
+                    id="passwordValidation"
+                    inputProps={{
+                      type: "password",
+                      onChange: this.handleChange
+                    }}
                   />
                 </GridItem>
               </GridContainer>
@@ -81,16 +119,20 @@ class UpgradeToPro extends Component {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    id="description"
                     inputProps={{
                       multiline: true,
-                      rows: 5
+                      rows: 5,
+                      onChange: this.handleChange
                     }}
                   />
                 </GridItem>
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary">Regisztráció</Button>
+              <Button color="primary" onClick={this.validateAndRegister}>
+                Regisztráció
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>

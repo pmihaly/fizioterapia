@@ -16,6 +16,7 @@ export const logIn = ({ email, password }) => dispatch => {
 };
 
 export const register = userDetails => dispatch => {
+  userDetails.role = "admin"
   axios
     .post(`${address}/users`, userDetails)
     .then(({ data }) => {

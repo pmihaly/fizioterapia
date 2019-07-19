@@ -38,8 +38,7 @@ class UpgradeToPro extends Component {
     });
   };
 
-  handleChange = e => {
-    console.log("handleChange");
+  handleUserInput = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
 
@@ -62,12 +61,17 @@ class UpgradeToPro extends Component {
                   <CustomInput
                     labelText="Email cím"
                     id="email"
+                    error={
+                      !this.state.email.match(
+                        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                      ) && this.state.email
+                    }
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
                       type: "email",
-                      onChange: this.handleChange
+                      onChange: this.handleUserInput
                     }}
                   />
                 </GridItem>
@@ -79,7 +83,7 @@ class UpgradeToPro extends Component {
                     }}
                     id="name"
                     inputProps={{
-                      onChange: this.handleChange
+                      onChange: this.handleUserInput
                     }}
                   />
                 </GridItem>
@@ -91,10 +95,13 @@ class UpgradeToPro extends Component {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    error={
+                      this.state.password.length < 6 && this.state.password
+                    }
                     id="password"
                     inputProps={{
                       type: "password",
-                      onChange: this.handleChange
+                      onChange: this.handleUserInput
                     }}
                   />
                 </GridItem>
@@ -105,9 +112,13 @@ class UpgradeToPro extends Component {
                       fullWidth: true
                     }}
                     id="passwordValidation"
+                    error={
+                      this.state.passwordValidation !== this.state.password &&
+                      this.state.passwordValidation
+                    }
                     inputProps={{
                       type: "password",
-                      onChange: this.handleChange
+                      onChange: this.handleUserInput
                     }}
                   />
                 </GridItem>
@@ -123,7 +134,7 @@ class UpgradeToPro extends Component {
                     inputProps={{
                       multiline: true,
                       rows: 5,
-                      onChange: this.handleChange
+                      onChange: this.handleUserInput
                     }}
                   />
                 </GridItem>

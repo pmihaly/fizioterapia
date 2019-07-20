@@ -1,4 +1,5 @@
 import withStyles from "@material-ui/core/styles/withStyles";
+import Error from "@material-ui/icons/Error";
 import Card from "components/Card/Card.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
@@ -8,12 +9,11 @@ import Button from "components/CustomButtons/Button.jsx";
 import CustomInput from "components/CustomInput/CustomInput";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
+import Snackbar from "components/Snackbar/Snackbar.jsx";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logIn, register } from "../../actions/AuthActions";
-import Snackbar from "components/Snackbar/Snackbar.jsx";
-import Error from "@material-ui/icons/Error";
 
 class UpgradeToPro extends Component {
   constructor(props) {

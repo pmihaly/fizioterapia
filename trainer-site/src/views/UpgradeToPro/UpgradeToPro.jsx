@@ -25,7 +25,6 @@ class UpgradeToPro extends Component {
       registrationPassword: "",
       registrationPasswordValidation: "",
       registrationDescription: "",
-      registrationErrorSnackbarOpen: false,
       loginEmail: "",
       loginPassword: ""
     };
@@ -163,6 +162,13 @@ class UpgradeToPro extends Component {
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={5}>
+          <Snackbar
+            place="bc"
+            color="danger"
+            icon={Error}
+            message="Hiba történt a bejelentkezés közben. Kérlek ellenőrizd az adataidat és próbálkozz meg mégegyszer"
+            open={this.props.LoginError}
+          ></Snackbar>
           <Card>
             <CardHeader color="rose">
               <h4 className={this.props.classes.cardTitleWhite}>

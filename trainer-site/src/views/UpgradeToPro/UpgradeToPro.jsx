@@ -20,25 +20,18 @@ class UpgradeToPro extends Component {
     super(props);
 
     this.state = {
-      email: "",
-      name: "",
-      password: "",
-      passwordValidation: "",
-      description: "",
-      registrationErrorSnackbarOpen: false
+      registrationEmail: "",
+      registrationName: "",
+      registrationPassword: "",
+      registrationPasswordValidation: "",
+      registrationDescription: "",
+      registrationErrorSnackbarOpen: false,
+      loginEmail: "",
+      loginPassword: ""
     };
   }
   static propTypes = {
     classes: PropTypes.object
-  };
-
-  validateAndRegister = () => {
-    this.props.Register({
-      email: this.state.email,
-      name: this.state.name,
-      password: this.state.password,
-      description: this.state.description
-    });
   };
 
   handleUserInput = e => {
@@ -48,7 +41,7 @@ class UpgradeToPro extends Component {
   render() {
     return (
       <GridContainer>
-        <GridItem xs={12} sm={12} md={8}>
+        <GridItem xs={12} sm={12} md={7}>
           <Snackbar
             place="bc"
             color="danger"
@@ -70,11 +63,11 @@ class UpgradeToPro extends Component {
                 <GridItem xs={12} sm={12} md={5}>
                   <CustomInput
                     labelText="Email cím"
-                    id="email"
+                    id="registrationEmail"
                     error={
-                      !this.state.email.match(
+                      !this.state.registrationEmail.match(
                         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                      ) && !!this.state.email
+                      ) && !!this.state.registrationEmail
                     }
                     formControlProps={{
                       fullWidth: true
@@ -91,7 +84,7 @@ class UpgradeToPro extends Component {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    id="name"
+                    id="registrationName"
                     inputProps={{
                       onChange: this.handleUserInput
                     }}
@@ -106,9 +99,10 @@ class UpgradeToPro extends Component {
                       fullWidth: true
                     }}
                     error={
-                      this.state.password.length < 6 && this.state.password
+                      this.state.registrationPassword.length < 6 &&
+                      this.state.registrationPassword
                     }
-                    id="password"
+                    id="registrationPassword"
                     inputProps={{
                       type: "password",
                       onChange: this.handleUserInput
@@ -121,10 +115,11 @@ class UpgradeToPro extends Component {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    id="passwordValidation"
+                    id="registrationPasswordValidation"
                     error={
-                      this.state.passwordValidation !== this.state.password &&
-                      this.state.passwordValidation
+                      this.state.registrationPasswordValidation !==
+                        this.state.registrationPassword &&
+                      this.state.registrationPasswordValidation
                     }
                     inputProps={{
                       type: "password",
@@ -140,7 +135,7 @@ class UpgradeToPro extends Component {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    id="description"
+                    id="registrationDescription"
                     inputProps={{
                       multiline: true,
                       rows: 5,
@@ -151,33 +146,79 @@ class UpgradeToPro extends Component {
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary" onClick={this.validateAndRegister}>
+              <Button
+                color="primary"
+                onClick={() => {
+                  this.props.Register({
+                    email: this.state.registrationEmail,
+                    name: this.state.registrationName,
+                    password: this.state.registrationPassword,
+                    description: this.state.registrationDescription
+                  });
+                }}
+              >
                 Regisztráció
               </Button>
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card profile>
-            <CardAvatar profile>
-              <a href="#pablo" onClick={e => e.preventDefault()}>
-                <img src={require("assets/img/faces/marc.jpg")} alt="..." />
-              </a>
-            </CardAvatar>
-            <CardBody profile>
-              <h6 className={this.props.classes.cardCategory}>
-                CEO / CO-FOUNDER
-              </h6>
-              <h4 className={this.props.classes.cardTitle}>Alec Thompson</h4>
-              <p className={this.props.classes.description}>
-                Don{"'"}t be scared of the truth because we need to restart the
-                human foundation in truth And I love you like Kanye loves Kanye
-                I love Rick Owens’ bed design but the back is...
+        <GridItem xs={12} sm={12} md={5}>
+          <Card>
+            <CardHeader color="rose">
+              <h4 className={this.props.classes.cardTitleWhite}>
+                Bejelentkezés
+              </h4>
+              <p className={this.props.classes.cardCategoryWhite}>
+                Ha már regisztráltál az oldalunkon
               </p>
-              <Button color="primary" round>
-                Follow
-              </Button>
+            </CardHeader>
+            <CardBody>
+              <CustomInput
+                labelText="Email cím"
+                id="loginEmail"
+                error={
+                  !this.state.loginEmail.match(
+                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                  ) && !!this.state.loginEmail
+                }
+                formControlProps={{
+                  fullWidth: true
+                }}
+                inputProps={{
+                  type: "email",
+                  onChange: this.handleUserInput
+                }}
+              />
+
+              <CustomInput
+                labelText="Jelszó"
+                formControlProps={{
+                  fullWidth: true
+                }}
+                error={
+                  this.state.loginPassword.length < 6 &&
+                  this.state.loginPassword
+                }
+                id="loginPassword"
+                inputProps={{
+                  type: "password",
+                  onChange: this.handleUserInput
+                }}
+              />
             </CardBody>
+            <CardFooter>
+              <Button
+                color="rose"
+                onClick={() => {
+                  this.props.LogIn({
+                    email: this.state.loginEmail,
+                    password: this.state.loginPassword
+                  });
+                }}
+              >
+                Bejelentkezés
+              </Button>
+            </CardFooter>
           </Card>
         </GridItem>
       </GridContainer>

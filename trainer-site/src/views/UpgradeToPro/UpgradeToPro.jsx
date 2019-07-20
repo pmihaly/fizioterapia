@@ -12,6 +12,8 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logIn, register } from "../../actions/AuthActions";
+import Snackbar from "components/Snackbar/Snackbar.jsx";
+import Error from "@material-ui/icons/Error";
 
 class UpgradeToPro extends Component {
   constructor(props) {
@@ -22,7 +24,8 @@ class UpgradeToPro extends Component {
       name: "",
       password: "",
       passwordValidation: "",
-      description: ""
+      description: "",
+      registrationErrorSnackbarOpen: false
     };
   }
   static propTypes = {
@@ -46,6 +49,13 @@ class UpgradeToPro extends Component {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={8}>
+          <Snackbar
+            place="bc"
+            color="danger"
+            icon={Error}
+            message="Hiba történt a regisztráció közben. Kérlek ellenőrizd az adataidat és próbálkozz meg mégegyszer"
+            open={this.props.RegistrationError}
+          ></Snackbar>
           <Card>
             <CardHeader color="primary">
               <h4 className={this.props.classes.cardTitleWhite}>
@@ -64,7 +74,7 @@ class UpgradeToPro extends Component {
                     error={
                       !this.state.email.match(
                         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                      ) && this.state.email
+                      ) && !!this.state.email
                     }
                     formControlProps={{
                       fullWidth: true
@@ -246,7 +256,9 @@ UpgradeToPro = withStyles(styles)(UpgradeToPro);
 
 const mapStateToProps = (state, props) => {
   return {
-    user: state.authenticatedUser
+    user: state.auth.authenticatedUser,
+    LoginError: state.error.loginError,
+    RegistrationError: state.error.registrationError
   };
 };
 

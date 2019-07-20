@@ -12,10 +12,11 @@ import Admin from "layouts/Admin.jsx";
 import RTL from "layouts/RTL.jsx";
 
 import "assets/css/material-dashboard-react.css?v=1.7.0";
+import errorReducer from "reducers/ErrorReducer";
 
 const hist = createBrowserHistory();
 
-const allReducers = combineReducers({ auth: authReducer });
+const allReducers = combineReducers({ auth: authReducer, error: errorReducer });
 
 const allStoreEnhancers = compose(
   applyMiddleware(thunk),

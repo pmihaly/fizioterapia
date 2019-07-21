@@ -13,6 +13,7 @@ import RTL from "layouts/RTL.jsx";
 
 import "assets/css/material-dashboard-react.css?v=1.7.0";
 import errorReducer from "reducers/ErrorReducer";
+import Main from "layouts/Main";
 
 const hist = createBrowserHistory();
 
@@ -31,7 +32,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/tornász" component={Admin} />
         <Route path="/rtl" component={RTL} />
-        <Redirect from="/" to="/tornász/vezérlőpult" />
+        <Route path="/" component={Main} />
       </Switch>
     </Router>
   </Provider>,

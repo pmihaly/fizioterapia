@@ -1,4 +1,3 @@
-
 /*eslint-disable*/
 import React from "react";
 import classNames from "classnames";
@@ -29,7 +28,7 @@ const Sidebar = ({ ...props }) => {
       {routes.map((prop, key) => {
         var activePro = " ";
         var listItemClasses;
-        if (prop.path === "/bejelentkezés") {
+        if (prop.path === "bejelentkezés") {
           activePro = classes.activePro + " ";
           listItemClasses = classNames({
             [" " + classes[color]]: true

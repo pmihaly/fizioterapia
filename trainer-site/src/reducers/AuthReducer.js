@@ -1,4 +1,9 @@
-import { LOG_IN, REGISTER, LOG_IN_WITH_USER } from "../actions/AuthActions";
+import {
+  LOG_IN,
+  REGISTER,
+  LOG_IN_WITH_USER,
+  LOG_OUT
+} from "../actions/AuthActions";
 
 const initialState = {
   authenticatedUser: {}
@@ -15,7 +20,7 @@ export default (state = initialState, { type, payload }) => {
     case LOG_IN_WITH_USER:
       return { ...state, authenticatedUser: payload };
 
-    case LOG_IN_WITH_USER:
+    case LOG_OUT:
       return { ...state, authenticatedUser: {} };
 
     default:

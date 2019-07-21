@@ -1,4 +1,3 @@
-
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import logo from "assets/img/logo.png";
@@ -15,6 +14,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import routes from "routes.js";
+import { setUser } from "actions/AuthActions";
+import { connect } from "react-redux";
 
 let ps;
 
@@ -74,6 +75,11 @@ class Dashboard extends React.Component {
       ps = new PerfectScrollbar(this.mainPanel.current);
     }
     window.addEventListener("resize", this.resizeFunction);
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      this.props.LogIn(user);
+    }
   }
   componentDidUpdate(e) {
     if (e.history.location.pathname !== e.location.pathname) {
@@ -124,8 +130,23 @@ class Dashboard extends React.Component {
   }
 }
 
+Dashboard = withStyles(dashboardStyle)(Dashboard);
+
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(Dashboard);
+const mapStateToProps = (state, props) => {
+  return {
+    user: state.auth.authenticatedUser
+  };
+};
+
+const mapActionsToProps = {
+  LogIn: setUser
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(Dashboard);

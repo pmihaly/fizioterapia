@@ -1,7 +1,6 @@
 import withStyles from "@material-ui/core/styles/withStyles";
 import Error from "@material-ui/icons/Error";
 import Card from "components/Card/Card.jsx";
-import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";

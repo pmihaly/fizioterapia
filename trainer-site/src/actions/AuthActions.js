@@ -34,7 +34,7 @@ export const setUser = payload => ({
   payload
 });
 
-export const logOut = (payload) => ({
-  type: LOG_OUT,
-  payload
-})
+export const logOut = () => dispatch => {
+  localStorage.removeItem("user");
+  dispatch({ type: LOG_OUT });
+};

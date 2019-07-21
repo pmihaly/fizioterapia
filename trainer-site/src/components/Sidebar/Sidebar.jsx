@@ -34,6 +34,12 @@ const Sidebar = ({ ...props }) => {
             [" " + classes[color]]: true
           });
         } else {
+          if (prop.path === "/kijelentkezés") {
+            activePro = classes.activePro + " ";
+            listItemClasses = classNames({
+              [" " + classes[color]]: true
+            });
+          }
           listItemClasses = classNames({
             [" " + classes[color]]: activeRoute(prop.layout + prop.path)
           });

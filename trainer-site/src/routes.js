@@ -1,6 +1,7 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Group from "@material-ui/icons/Group";
+import ExitToApp from "@material-ui/icons/ExitToApp";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Home from "@material-ui/icons/Home";
 // core components/views for Admin layout
@@ -8,6 +9,7 @@ import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import TableList from "views/TableList/TableList.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
+import LogOut from "views/LogOut/LogOut.jsx";
 
 const authenticatedRoutes = [
   {
@@ -32,6 +34,14 @@ const authenticatedRoutes = [
     rtlName: "قائمة الجدول",
     icon: Group,
     component: TableList,
+    layout: "/tornász"
+  },
+  {
+    path: "/kijelentkezés",
+    name: "Kijelentkezés",
+    rtlName: "قائمة الجدول",
+    icon: ExitToApp,
+    component: LogOut,
     layout: "/tornász"
   }
 ];

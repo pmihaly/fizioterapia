@@ -1,31 +1,28 @@
-
-import React from "react";
-import PropTypes from "prop-types";
-import { Switch, Route, Redirect } from "react-router-dom";
+// @material-ui/core components
+import withStyles from "@material-ui/core/styles/withStyles";
+import logo from "assets/img/logo.png";
+import image from "assets/img/sidebar-2.jpg";
+import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
+import Footer from "components/Footer/Footer.jsx";
+// core components
+import Navbar from "components/Navbars/Navbar.jsx";
+import Sidebar from "components/Sidebar/Sidebar.jsx";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-// core components
-import Navbar from "components/Navbars/Navbar.jsx";
-import Footer from "components/Footer/Footer.jsx";
-import Sidebar from "components/Sidebar/Sidebar.jsx";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
-
+import PropTypes from "prop-types";
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 import routes from "routes.js";
-
-import rtlStyle from "assets/jss/material-dashboard-react/layouts/rtlStyle.jsx";
-
-import image from "assets/img/sidebar-2.jpg";
-import logo from "assets/img/reactlogo.png";
+import { setUser } from "actions/AuthActions";
+import { connect } from "react-redux";
 
 let ps;
 
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
-      if (prop.layout === "/rtl") {
+      if (prop.layout === "/tornász") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -36,16 +33,16 @@ const switchRoutes = (
       }
       return null;
     })}
-    <Redirect from="/rtl" to="/rtl/rtl-page" />
+    <Redirect from="/tornász" to="/tornász/vezérlőpult" />
   </Switch>
 );
 
-class RTL extends React.Component {
+class TrainerLayout extends React.Component {
   state = {
     image: image,
     color: "blue",
     hasImage: true,
-    fixedClasses: "dropdown ",
+    fixedClasses: "dropdown show",
     mobileOpen: false
   };
   mainPanel = React.createRef();
@@ -78,10 +75,15 @@ class RTL extends React.Component {
       ps = new PerfectScrollbar(this.mainPanel.current);
     }
     window.addEventListener("resize", this.resizeFunction);
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      this.props.LogIn(user);
+    }
   }
   componentDidUpdate(e) {
     if (e.history.location.pathname !== e.location.pathname) {
-      this.mainPanel.current.mainPanel.scrollTop = 0;
+      this.mainPanel.current.scrollTop = 0;
       if (this.state.mobileOpen) {
         this.setState({ mobileOpen: false });
       }
@@ -99,20 +101,18 @@ class RTL extends React.Component {
       <div className={classes.wrapper}>
         <Sidebar
           routes={routes}
-          logoText={"الإبداعية تيم"}
+          logoText={"Fizioterápia"}
           logo={logo}
           image={this.state.image}
           handleDrawerToggle={this.handleDrawerToggle}
           open={this.state.mobileOpen}
           color={this.state.color}
-          rtlActive
           {...rest}
         />
         <div className={classes.mainPanel} ref={this.mainPanel}>
           <Navbar
             routes={routes}
             handleDrawerToggle={this.handleDrawerToggle}
-            rtlActive
             {...rest}
           />
           {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
@@ -124,23 +124,29 @@ class RTL extends React.Component {
             <div className={classes.map}>{switchRoutes}</div>
           )}
           {this.getRoute() ? <Footer /> : null}
-          <FixedPlugin
-            handleImageClick={this.handleImageClick}
-            handleColorClick={this.handleColorClick}
-            bgColor={this.state["color"]}
-            bgImage={this.state["image"]}
-            handleFixedClick={this.handleFixedClick}
-            fixedClasses={this.state.fixedClasses}
-            rtlActive
-          />
         </div>
       </div>
     );
   }
 }
 
-RTL.propTypes = {
+TrainerLayout = withStyles(dashboardStyle)(TrainerLayout);
+
+TrainerLayout.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(rtlStyle)(RTL);
+const mapStateToProps = (state, props) => {
+  return {
+    user: state.auth.authenticatedUser
+  };
+};
+
+const mapActionsToProps = {
+  LogIn: setUser
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(TrainerLayout);

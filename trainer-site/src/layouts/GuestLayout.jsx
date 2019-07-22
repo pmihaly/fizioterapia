@@ -22,7 +22,7 @@ let ps;
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
-      if (prop.layout === "/tornász") {
+      if (prop.layout === "/") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -33,11 +33,11 @@ const switchRoutes = (
       }
       return null;
     })}
-    <Redirect from="/tornász" to="/tornász/vezérlőpult" />
+    <Redirect from="/" to="/főoldal" />
   </Switch>
 );
 
-class Dashboard extends React.Component {
+class GuestLayout extends React.Component {
   state = {
     image: image,
     color: "blue",
@@ -130,9 +130,9 @@ class Dashboard extends React.Component {
   }
 }
 
-Dashboard = withStyles(dashboardStyle)(Dashboard);
+GuestLayout = withStyles(dashboardStyle)(GuestLayout);
 
-Dashboard.propTypes = {
+GuestLayout.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
@@ -149,4 +149,4 @@ const mapActionsToProps = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(Dashboard);
+)(GuestLayout);

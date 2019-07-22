@@ -12,6 +12,7 @@ import Snackbar from "components/Snackbar/Snackbar.jsx";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { logIn, register } from "../../actions/AuthActions";
 
 class UpgradeToPro extends Component {
@@ -39,6 +40,7 @@ class UpgradeToPro extends Component {
   render() {
     return (
       <GridContainer>
+        {this.props.user.token && <Redirect to="/tornász"></Redirect>}
         <GridItem xs={12} sm={12} md={7}>
           <Snackbar
             place="bc"

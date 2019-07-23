@@ -13,7 +13,7 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 import PropTypes from "prop-types";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import routes from "routes.js";
+import routes from "../routes/authenticatedRoutes";
 import { setUser } from "actions/AuthActions";
 import { connect } from "react-redux";
 

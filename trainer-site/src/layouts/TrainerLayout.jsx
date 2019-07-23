@@ -99,6 +99,7 @@ class TrainerLayout extends React.Component {
     const { classes, ...rest } = this.props;
     return (
       <div className={classes.wrapper}>
+        {!this.props.user.token && <Redirect to="/" />}
         <Sidebar
           routes={routes}
           logoText={"Fizioterápia"}

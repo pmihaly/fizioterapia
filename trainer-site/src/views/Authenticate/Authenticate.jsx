@@ -15,7 +15,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { logIn, register } from "../../actions/AuthActions";
 
-class UpgradeToPro extends Component {
+class Authenticate extends Component {
   constructor(props) {
     super(props);
 
@@ -300,7 +300,7 @@ const styles = {
   }
 };
 
-UpgradeToPro = withStyles(styles)(UpgradeToPro);
+Authenticate = withStyles(styles)(Authenticate);
 
 const mapStateToProps = (state, props) => {
   return {
@@ -318,4 +318,4 @@ const mapActionsToProps = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(UpgradeToPro);
+)(Authenticate);

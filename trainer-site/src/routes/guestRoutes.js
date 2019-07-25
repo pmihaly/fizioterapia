@@ -2,9 +2,8 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Group from "@material-ui/icons/Group";
 import Home from "@material-ui/icons/Home";
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
-import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
+import Authenticate from "views/Authenticate/Authenticate.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
-
 
 export default [
   {
@@ -28,7 +27,7 @@ export default [
     name: "Bejelentkezés",
     rtlName: "التطور للاحترافية",
     icon: AccountCircle,
-    component: UpgradeToPro,
+    component: Authenticate,
     layout: "/"
   }
 ];

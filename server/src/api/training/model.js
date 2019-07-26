@@ -9,10 +9,18 @@ const trainingSchema = new Schema(
       type: String
     },
     patient: {
-      type: Array
+      type: [{ type: Schema.Types.ObjectId, ref: "users" }]
+    },
+    trainer: {
+      type: [{ type: Schema.Types.ObjectId, ref: "users" }]
     },
     exercises: {
-      type: Array
+      type: [
+        {
+          id: { type: Schema.Types.ObjectId, ref: "exercises" },
+          number: Number
+        }
+      ]
     }
   },
   {

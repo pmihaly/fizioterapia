@@ -7,13 +7,18 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { Route, Router, Switch } from "react-router-dom";
 import errorReducer from "reducers/ErrorReducer";
+import ExerciseReducer from "reducers/ExerciseReducer";
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import authReducer from "./reducers/AuthReducer";
 
 const hist = createBrowserHistory();
 
-const allReducers = combineReducers({ auth: authReducer, error: errorReducer });
+const allReducers = combineReducers({
+  auth: authReducer,
+  error: errorReducer,
+  exercises: ExerciseReducer
+});
 
 const allStoreEnhancers = compose(
   applyMiddleware(thunk),

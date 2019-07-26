@@ -6,8 +6,14 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import { connect } from "react-redux";
+import { getExercises } from "../../actions/ExerciseActions";
 
-export default class TrainingDashboard extends Component {
+class TrainingDashboard extends Component {
+  componentDidMount() {
+    const access_token = this.props.token;
+    this.props.getExercises({ access_token });
+  }
   render() {
     return (
       <div>
@@ -67,3 +73,17 @@ export default class TrainingDashboard extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  exercises: state.exercises.exercises,
+  token: state.auth.authenticatedUser.token
+});
+
+const mapDispatchToProps = {
+  getExercises
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TrainingDashboard);

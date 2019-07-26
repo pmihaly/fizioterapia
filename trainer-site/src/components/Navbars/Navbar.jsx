@@ -17,14 +17,14 @@ function Header({ ...props }) {
   });
   return (
     <AppBar className={classes.appBar + appBarClasses}>
-      <Toolbar className={classes.container}>
-        <div className={classes.flex}>
-          {/* Here we create navbar brand, based on route name */}
-          <Button color="transparent" href="#" className={classes.title}>
-            Fizioterápia
-          </Button>
-        </div>
-        <Hidden mdUp implementation="css">
+      <Hidden mdUp implementation="css">
+        <Toolbar className={classes.container}>
+          <div className={classes.flex}>
+            {/* Here we create navbar brand, based on route name */}
+            <Button color="transparent" href="#" className={classes.title}>
+              Fizioterápia
+            </Button>
+          </div>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -32,8 +32,8 @@ function Header({ ...props }) {
           >
             <Menu />
           </IconButton>
-        </Hidden>
-      </Toolbar>
+        </Toolbar>
+      </Hidden>
     </AppBar>
   );
 }

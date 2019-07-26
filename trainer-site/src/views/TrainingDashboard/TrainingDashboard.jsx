@@ -9,9 +9,10 @@ import { connect } from "react-redux";
 import { getExercises } from "../../actions/ExerciseActions";
 
 const TrainingDashboard = props => {
-  useEffect(props => {
+  useEffect(() => {
     const access_token = props.token;
     props.getExercises({ access_token });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

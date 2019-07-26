@@ -10,228 +10,216 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Snackbar from "components/Snackbar/Snackbar.jsx";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { logIn, register } from "../../actions/AuthActions";
 
-class Authenticate extends Component {
-  constructor(props) {
-    super(props);
+const Authenticate = props => {
+  const [registration, setRegistration] = useState({
+    email: "",
+    name: "",
+    password: "",
+    passwordVerification: "",
+    description: ""
+  });
 
-    this.state = {
-      registrationEmail: "",
-      registrationName: "",
-      registrationPassword: "",
-      registrationPasswordValidation: "",
-      registrationDescription: "",
-      loginEmail: "",
-      loginPassword: ""
-    };
-  }
-  static propTypes = {
-    classes: PropTypes.object
+  const [login, setLogin] = useState({ loginEmail: "", loginPassword: "" });
+
+  const handleRegistrationInput = e => {
+    setRegistration({ ...registration, [e.target.id]: e.target.value });
   };
 
-  handleUserInput = e => {
-    this.setState({ [e.target.id]: e.target.value });
+  const handleLoginInput = e => {
+    setLogin({ ...login, [e.target.id]: e.target.value });
   };
 
-  render() {
-    return (
-      <GridContainer>
-        {this.props.user.token && <Redirect to="/tornász"></Redirect>}
-        <GridItem xs={12} sm={12} md={7}>
-          <Snackbar
-            place="bc"
-            color="danger"
-            icon={Error}
-            message="Hiba történt a regisztráció közben. Kérlek ellenőrizd az adataidat és próbálkozz meg mégegyszer"
-            open={this.props.RegistrationError}
-          ></Snackbar>
-          <Card>
-            <CardHeader color="primary">
-              <h4 className={this.props.classes.cardTitleWhite}>
-                Regisztráció
-              </h4>
-              <p className={this.props.classes.cardCategoryWhite}>
-                Hozz létre egy új tornász fiókot
-              </p>
-            </CardHeader>
-            <CardBody>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
-                  <CustomInput
-                    labelText="Email cím"
-                    id="registrationEmail"
-                    error={
-                      !this.state.registrationEmail.match(
-                        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                      ) && !!this.state.registrationEmail
-                    }
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "email",
-                      onChange: this.handleUserInput
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={5}>
-                  <CustomInput
-                    labelText="Megjelenített név"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    id="registrationName"
-                    inputProps={{
-                      onChange: this.handleUserInput
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
-                  <CustomInput
-                    labelText="Jelszó"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    error={
-                      this.state.registrationPassword.length < 6 &&
-                      this.state.registrationPassword
-                    }
-                    id="registrationPassword"
-                    inputProps={{
-                      type: "password",
-                      onChange: this.handleUserInput
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={5}>
-                  <CustomInput
-                    labelText="Jelszó megerősítése"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    id="registrationPasswordValidation"
-                    error={
-                      this.state.registrationPasswordValidation !==
-                        this.state.registrationPassword &&
-                      this.state.registrationPasswordValidation
-                    }
-                    inputProps={{
-                      type: "password",
-                      onChange: this.handleUserInput
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                  <CustomInput
-                    labelText="Adj meg egy rövid leírást magadról, hogy könnyebben megtaláljanak a páciensek (Opcionális)"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    id="registrationDescription"
-                    inputProps={{
-                      multiline: true,
-                      rows: 5,
-                      onChange: this.handleUserInput
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-            </CardBody>
-            <CardFooter>
-              <Button
-                color="primary"
-                onClick={() => {
-                  this.props.Register({
-                    email: this.state.registrationEmail,
-                    name: this.state.registrationName,
-                    password: this.state.registrationPassword,
-                    description: this.state.registrationDescription
-                  });
-                }}
-              >
-                Regisztráció
-              </Button>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={5}>
-          <Snackbar
-            place="bc"
-            color="danger"
-            icon={Error}
-            message="Hiba történt a bejelentkezés közben. Kérlek ellenőrizd az adataidat és próbálkozz meg mégegyszer"
-            open={this.props.LoginError}
-          ></Snackbar>
-          <Card>
-            <CardHeader color="rose">
-              <h4 className={this.props.classes.cardTitleWhite}>
-                Bejelentkezés
-              </h4>
-              <p className={this.props.classes.cardCategoryWhite}>
-                Ha már regisztráltál az oldalunkon
-              </p>
-            </CardHeader>
-            <CardBody>
-              <CustomInput
-                labelText="Email cím"
-                id="loginEmail"
-                error={
-                  !this.state.loginEmail.match(
-                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                  ) && !!this.state.loginEmail
-                }
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  type: "email",
-                  onChange: this.handleUserInput
-                }}
-              />
+  return (
+    <GridContainer>
+      {props.user.token && <Redirect to="/tornász"></Redirect>}
+      <GridItem xs={12} sm={12} md={7}>
+        <Snackbar
+          place="bc"
+          color="danger"
+          icon={Error}
+          message="Hiba történt a regisztráció közben. Kérlek ellenőrizd az adataidat és próbálkozz meg mégegyszer"
+          open={props.registrationError}
+        ></Snackbar>
+        <Card>
+          <CardHeader color="primary">
+            <h4 className={props.classes.cardTitleWhite}>Regisztráció</h4>
+            <p className={props.classes.cardCategoryWhite}>
+              Hozz létre egy új tornász fiókot
+            </p>
+          </CardHeader>
+          <CardBody>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={5}>
+                <CustomInput
+                  labelText="Email cím"
+                  id="email"
+                  error={
+                    !registration.email.match(
+                      // eslint-disable-next-line no-useless-escape
+                      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    ) && !!registration.email
+                  }
+                  formControlProps={{
+                    fullWidth: true
+                  }}
+                  inputProps={{
+                    type: "email",
+                    onChange: handleRegistrationInput
+                  }}
+                />
+              </GridItem>
+              <GridItem xs={12} sm={12} md={5}>
+                <CustomInput
+                  labelText="Megjelenített név"
+                  formControlProps={{
+                    fullWidth: true
+                  }}
+                  id="name"
+                  inputProps={{
+                    onChange: handleRegistrationInput
+                  }}
+                />
+              </GridItem>
+            </GridContainer>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={5}>
+                <CustomInput
+                  labelText="Jelszó"
+                  formControlProps={{
+                    fullWidth: true
+                  }}
+                  error={
+                    registration.password.length < 6 && registration.password
+                  }
+                  id="password"
+                  inputProps={{
+                    type: "password",
+                    onChange: handleRegistrationInput
+                  }}
+                />
+              </GridItem>
+              <GridItem xs={12} sm={12} md={5}>
+                <CustomInput
+                  labelText="Jelszó megerősítése"
+                  formControlProps={{
+                    fullWidth: true
+                  }}
+                  id="passwordVerification"
+                  error={
+                    registration.passwordVerification !==
+                      registration.password && registration.passwordVerification
+                  }
+                  inputProps={{
+                    type: "password",
+                    onChange: handleRegistrationInput
+                  }}
+                />
+              </GridItem>
+            </GridContainer>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={12}>
+                <CustomInput
+                  labelText="Adj meg egy rövid leírást magadról, hogy könnyebben megtaláljanak a páciensek (Opcionális)"
+                  formControlProps={{
+                    fullWidth: true
+                  }}
+                  id="description"
+                  inputProps={{
+                    multiline: true,
+                    rows: 5,
+                    onChange: handleRegistrationInput
+                  }}
+                />
+              </GridItem>
+            </GridContainer>
+          </CardBody>
+          <CardFooter>
+            <Button
+              color="primary"
+              onClick={() => {
+                props.register({
+                  email: registration.email,
+                  name: registration.name,
+                  password: registration.password,
+                  description: registration.description
+                });
+              }}
+            >
+              Regisztráció
+            </Button>
+          </CardFooter>
+        </Card>
+      </GridItem>
+      <GridItem xs={12} sm={12} md={5}>
+        <Snackbar
+          place="bc"
+          color="danger"
+          icon={Error}
+          message="Hiba történt a bejelentkezés közben. Kérlek ellenőrizd az adataidat és próbálkozz meg mégegyszer"
+          open={props.loginError}
+        ></Snackbar>
+        <Card>
+          <CardHeader color="rose">
+            <h4 className={props.classes.cardTitleWhite}>Bejelentkezés</h4>
+            <p className={props.classes.cardCategoryWhite}>
+              Ha már regisztráltál az oldalunkon
+            </p>
+          </CardHeader>
+          <CardBody>
+            <CustomInput
+              labelText="Email cím"
+              id="loginEmail"
+              error={
+                !login.loginEmail.match(
+                  // eslint-disable-next-line no-useless-escape
+                  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                ) && !!login.loginEmail
+              }
+              formControlProps={{
+                fullWidth: true
+              }}
+              inputProps={{
+                type: "email",
+                onChange: handleLoginInput
+              }}
+            />
 
-              <CustomInput
-                labelText="Jelszó"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                error={
-                  this.state.loginPassword.length < 6 &&
-                  this.state.loginPassword
-                }
-                id="loginPassword"
-                inputProps={{
-                  type: "password",
-                  onChange: this.handleUserInput
-                }}
-              />
-            </CardBody>
-            <CardFooter>
-              <Button
-                color="rose"
-                onClick={() => {
-                  this.props.LogIn({
-                    email: this.state.loginEmail,
-                    password: this.state.loginPassword
-                  });
-                }}
-              >
-                Bejelentkezés
-              </Button>
-            </CardFooter>
-          </Card>
-        </GridItem>
-      </GridContainer>
-    );
-  }
-}
+            <CustomInput
+              labelText="Jelszó"
+              formControlProps={{
+                fullWidth: true
+              }}
+              error={login.loginPassword.length < 6 && login.loginPassword}
+              id="loginPassword"
+              inputProps={{
+                type: "password",
+                onChange: handleLoginInput
+              }}
+            />
+          </CardBody>
+          <CardFooter>
+            <Button
+              color="rose"
+              onClick={() => {
+                props.logIn({
+                  email: login.loginEmail,
+                  password: login.loginPassword
+                });
+              }}
+            >
+              Bejelentkezés
+            </Button>
+          </CardFooter>
+        </Card>
+      </GridItem>
+    </GridContainer>
+  );
+};
 
 const styles = {
   cardCategoryWhite: {
@@ -300,22 +288,27 @@ const styles = {
   }
 };
 
-Authenticate = withStyles(styles)(Authenticate);
-
-const mapStateToProps = (state, props) => {
-  return {
-    user: state.auth.authenticatedUser,
-    LoginError: state.error.loginError,
-    RegistrationError: state.error.registrationError
-  };
+Authenticate.propTypes = {
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  loginError: PropTypes.bool.isRequired,
+  registrationError: PropTypes.bool.isRequired,
+  logIn: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
 };
 
-const mapActionsToProps = {
-  LogIn: logIn,
-  Register: register
+const mapStateToProps = state => ({
+  user: state.auth.authenticatedUser,
+  loginError: state.error.loginError,
+  registrationError: state.error.registrationError
+});
+
+const mapDispatchToProps = {
+  logIn,
+  register
 };
 
 export default connect(
   mapStateToProps,
-  mapActionsToProps
-)(Authenticate);
+  mapDispatchToProps
+)(withStyles(styles)(Authenticate));

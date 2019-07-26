@@ -1,26 +1,26 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
 import { logOut } from "actions/AuthActions";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export class LogOut extends Component {
-  componentWillMount() {
-    this.props.LogOut();
-  }
-  render() {
-    return <div>{!this.props.user.token && <Redirect to="/főoldal" />}</div>;
-  }
-}
-
-const mapActionsToProps = {
-  LogOut: logOut
+const LogOut = props => {
+  useEffect(() => {
+    props.logOut();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return <Redirect to="/főoldal" />;
 };
 
-const mapStateToProps = state => ({
-  user: state.auth.authenticatedUser
-});
+LogOut.propTypes = {
+  logOut: PropTypes.func.isRequired
+};
+
+const mapActionsToProps = {
+  logOut
+};
 
 export default connect(
-  mapStateToProps,
+  null,
   mapActionsToProps
 )(LogOut);

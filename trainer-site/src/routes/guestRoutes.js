@@ -3,7 +3,7 @@ import Group from "@material-ui/icons/Group";
 import Home from "@material-ui/icons/Home";
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import Authenticate from "views/Authenticate/Authenticate.jsx";
-import UserProfile from "views/UserProfile/UserProfile.jsx";
+import TrainingDashboard from "views/TrainingDashboard/TrainingDashboard.jsx";
 
 export default [
   {
@@ -19,7 +19,7 @@ export default [
     name: "Rólunk",
     rtlName: "ملف تعريفي للمستخدم",
     icon: Group,
-    component: UserProfile,
+    component: TrainingDashboard,
     layout: "/"
   },
   {

@@ -166,8 +166,8 @@ material-dashboard-react
         │   └── Typography.jsx
         ├── Authenticate
         │   └── Authenticate.jsx
-        └── UserProfile
-            └── UserProfile.jsx
+        └── TrainingDashboard
+            └── TrainingDashboard.jsx
 ```
 
 ## Browser Support

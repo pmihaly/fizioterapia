@@ -26,9 +26,14 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
     .then(success(res))
     .catch(next);
 
-export const show = ({ params }, res, next) =>
+export const show = (user, { params }, res, next) =>
   Training.findById(params.id)
     .then(notFound(res))
+    .then(trainings =>
+      trainings.filter(
+        training => training.trainer.toString() == user._id.toString()
+      )
+    )
     .then(training => (training ? training.view() : null))
     .then(success(res))
     .catch(next);

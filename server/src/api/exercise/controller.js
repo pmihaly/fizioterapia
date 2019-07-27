@@ -23,8 +23,17 @@ export const create = ({ user, bodymen: { body } }, res, next) => {
   });
 };
 
-export const index = ({ querymen: { query, select, cursor } }, res, next) =>
+export const index = (
+  { user, querymen: { query, select, cursor } },
+  res,
+  next
+) =>
   Exercise.find(query, select, cursor)
+    .then(exercises =>
+      exercises.filter(
+        exercise => exercise.trainer.toString() == user._id.toString()
+      )
+    )
     .then(exercises => exercises.map(exercise => exercise.view()))
     .then(success(res))
     .catch(next);
@@ -32,6 +41,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   Exercise.findById(params.id)
     .then(notFound(res))
+    .then(authorOrAdmin(res, user, "trainer"))
     .then(exercise => (exercise ? exercise.view() : null))
     .then(success(res))
     .catch(next);

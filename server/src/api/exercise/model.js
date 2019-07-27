@@ -10,6 +10,11 @@ const exerciseSchema = new Schema(
     },
     youtubeLink: {
       type: String
+    },
+    trainer: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true
     }
   },
   {

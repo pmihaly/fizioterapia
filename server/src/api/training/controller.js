@@ -1,22 +1,22 @@
-import { success, notFound } from "../../services/response/";
+import { success, notFound, authorOrAdmin } from "../../services/response/";
 import { Training } from ".";
 import { Exercise } from "../exercise/index";
 
-const createTraining = (body, res, next) => {
-  Training.create(body)
+const createTraining = (user, body, res, next) => {
+  Training.create({ ...body, trainer: user })
     .then(training => training.view(true))
     .then(success(res, 201))
     .catch(next);
 };
 
-export const create = ({ bodymen: { body } }, res, next) => {
+export const create = ({ user, bodymen: { body } }, res, next) => {
   if (!body.thumbnail) {
     Exercise.findById(body.exercises[0].id).then(exercise => {
       body.thumbnail = exercise.thumbnail;
-      createTraining(body, res, next);
+      createTraining(user, body, res, next);
     });
   } else {
-    createTraining(body, res, next);
+    createTraining(user, body, res, next);
   }
 };
 
@@ -33,17 +33,19 @@ export const show = ({ params }, res, next) =>
     .then(success(res))
     .catch(next);
 
-export const update = ({ bodymen: { body }, params }, res, next) =>
+export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Training.findById(params.id)
     .then(notFound(res))
+    .then(authorOrAdmin(res, user, "trainer"))
     .then(training => (training ? Object.assign(training, body).save() : null))
     .then(training => (training ? training.view(true) : null))
     .then(success(res))
     .catch(next);
 
-export const destroy = ({ params }, res, next) =>
+export const destroy = ({ user, params }, res, next) =>
   Training.findById(params.id)
     .then(notFound(res))
+    .then(authorOrAdmin(res, user, "trainer"))
     .then(training => (training ? training.remove() : null))
     .then(success(res, 204))
     .catch(next);

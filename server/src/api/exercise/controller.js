@@ -1,4 +1,4 @@
-import { success, notFound } from "../../services/response/";
+import { success, notFound, authorOrAdmin } from "../../services/response/";
 import { Exercise } from ".";
 import axios from "axios";
 
@@ -12,12 +12,11 @@ function videoIdToBase64(videoId) {
   });
 }
 
-export const create = ({ bodymen: { body } }, res, next) => {
+export const create = ({ user, bodymen: { body } }, res, next) => {
   const videoId = body.youtubeLink.split("v=")[1];
-  console.log(videoId);
   videoIdToBase64(videoId).then(thumbnail => {
     body.thumbnail = thumbnail;
-    Exercise.create(body)
+    Exercise.create({ ...body, trainer: user })
       .then(exercise => exercise.view(true))
       .then(success(res, 201))
       .catch(next);
@@ -37,17 +36,19 @@ export const show = ({ params }, res, next) =>
     .then(success(res))
     .catch(next);
 
-export const update = ({ bodymen: { body }, params }, res, next) =>
+export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Exercise.findById(params.id)
     .then(notFound(res))
+    .then(authorOrAdmin(res, user, "trainer"))
     .then(exercise => (exercise ? Object.assign(exercise, body).save() : null))
     .then(exercise => (exercise ? exercise.view(true) : null))
     .then(success(res))
     .catch(next);
 
-export const destroy = ({ params }, res, next) =>
+export const destroy = ({ user, params }, res, next) =>
   Exercise.findById(params.id)
     .then(notFound(res))
+    .then(authorOrAdmin(res, user, "trainer"))
     .then(exercise => (exercise ? exercise.remove() : null))
     .then(success(res, 204))
     .catch(next);

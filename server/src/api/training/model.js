@@ -12,7 +12,9 @@ const trainingSchema = new Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "users" }]
     },
     trainer: {
-      type: [{ type: Schema.Types.ObjectId, ref: "users" }]
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true
     },
     exercises: {
       type: [

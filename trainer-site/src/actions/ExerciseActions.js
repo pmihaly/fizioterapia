@@ -1,5 +1,6 @@
 import axios from "axios";
 
+export const CREATE_EXERCISE = "CREATE_EXERCISE";
 export const GET_EXERCISES = "GET_EXERCISES";
 export const UPDATE_EXERCISE = "UPDATE_EXERCISE";
 export const DELETE_EXERCISE = "DELETE_EXERCISE";

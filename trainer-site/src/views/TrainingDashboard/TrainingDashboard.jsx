@@ -7,23 +7,34 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getExercises } from "../../actions/ExerciseActions";
-import {
-  Button,
-  GridList,
-  GridListTile,
-  GridListTileBar
-} from "@material-ui/core";
+import { getTrainings } from "../../actions/TrainingActions";
+import { GridList, GridListTile, GridListTileBar } from "@material-ui/core";
 
 const TrainingDashboard = props => {
   useEffect(() => {
     const access_token = props.token;
-    props.getExercises({ access_token });
+    if (props.exercises.length === 0) props.getExercises({ access_token });
+    if (props.trainings.length === 0) props.getTrainings({ access_token });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <GridContainer direction="column" alignItems="center" justify="center">
-      <GridItem xs={12} sm={12} md={8}></GridItem>
+      <GridItem xs={12} sm={12} md={8}>
+        <GridContainer>
+          {props.trainings.map(training => (
+            <Card>
+              <CardHeader>{training.name}</CardHeader>
+              <CardBody>
+                <img
+                  src={`data:image/jpeg;base64, ${training.thumbnail}`}
+                  alt={`${training.name} gyakorlatsor képe`}
+                />
+              </CardBody>
+            </Card>
+          ))}
+        </GridContainer>
+      </GridItem>
       <GridItem xs={12} sm={12} md={8}>
         <Card>
           <CardHeader color="primary">
@@ -57,16 +68,19 @@ const TrainingDashboard = props => {
 TrainingDashboard.propTypes = {
   exercise: PropTypes.object.isRequired,
   token: PropTypes.string.isRequired,
-  getExercises: PropTypes.func.isRequired
+  getExercises: PropTypes.func.isRequired,
+  getTrainings: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   exercises: state.exercises.exercises,
-  token: state.auth.authenticatedUser.token
+  token: state.auth.authenticatedUser.token,
+  trainings: state.trainings.trainings
 });
 
 const mapDispatchToProps = {
-  getExercises
+  getExercises,
+  getTrainings
 };
 
 export default connect(

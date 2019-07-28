@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getExercises } from "../../actions/ExerciseActions";
-import { getTrainings } from "../../actions/TrainingActions";
+import { getTrainings, deleteTraining } from "../../actions/TrainingActions";
 import {
   GridList,
   GridListTile,
@@ -53,7 +53,15 @@ const TrainingDashboard = props => {
                       </Button>
                     </GridItem>
                     <GridItem>
-                      <Button color="rose">
+                      <Button
+                        color="rose"
+                        onClick={() => {
+                          const access_token = props.token;
+                          props.deleteTraining({ access_token }, training.id);
+
+                          props.getTrainings({ access_token });
+                        }}
+                      >
                         <i className="material-icons">delete</i> törlés
                       </Button>
                     </GridItem>
@@ -109,7 +117,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   getExercises,
-  getTrainings
+  getTrainings,
+  deleteTraining
 };
 
 export default connect(

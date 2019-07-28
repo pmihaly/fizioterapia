@@ -15,6 +15,7 @@ import {
   withStyles
 } from "@material-ui/core";
 import cardImagesStyles from "assets/jss/material-dashboard-react/cardImagesStyles.jsx";
+import Button from "components/CustomButtons/Button";
 
 const TrainingDashboard = props => {
   useEffect(() => {
@@ -41,6 +42,22 @@ const TrainingDashboard = props => {
 
                 <CardBody>
                   <h4>{training.name}</h4>
+                  <GridContainer
+                    direction="row"
+                    alignItems="baseline"
+                    justify="space-around"
+                  >
+                    <GridItem>
+                      <Button color="primary">
+                        <i className="material-icons">edit</i> szerkesztés
+                      </Button>
+                    </GridItem>
+                    <GridItem>
+                      <Button color="rose">
+                        <i className="material-icons">delete</i> törlés
+                      </Button>
+                    </GridItem>
+                  </GridContainer>
                 </CardBody>
               </Card>
             </GridItem>

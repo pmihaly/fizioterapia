@@ -6,13 +6,14 @@ import GridItem from "components/Grid/GridItem.jsx";
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getExercises } from "../../actions/ExerciseActions";
+import { getExercises, deleteExercise } from "../../actions/ExerciseActions";
 import { getTrainings, deleteTraining } from "../../actions/TrainingActions";
 import {
   GridList,
   GridListTile,
   GridListTileBar,
-  withStyles
+  withStyles,
+  IconButton
 } from "@material-ui/core";
 import cardImagesStyles from "assets/jss/material-dashboard-react/cardImagesStyles.jsx";
 import Button from "components/CustomButtons/Button";
@@ -55,12 +56,12 @@ const TrainingDashboard = props => {
                     <GridItem>
                       <Button
                         color="rose"
-                        onClick={() => {
-                          const access_token = props.token;
-                          props.deleteTraining({ access_token }, training.id);
-
-                          props.getTrainings({ access_token });
-                        }}
+                        onClick={() =>
+                          props.deleteTraining(
+                            { access_token: props.token },
+                            training.id
+                          )
+                        }
                       >
                         <i className="material-icons">delete</i> törlés
                       </Button>
@@ -91,7 +92,29 @@ const TrainingDashboard = props => {
                     src={`data:image/jpeg;base64, ${exercise.thumbnail}`}
                     alt={`${exercise.name} gyakorlat képe`}
                   />
-                  <GridListTileBar title={exercise.name}></GridListTileBar>
+                  <GridListTileBar
+                    title={exercise.name}
+                    actionIcon={
+                      <div>
+                        <IconButton
+                          style={{ color: "rgba(255, 255, 255, 0.54)" }}
+                        >
+                          <i className="material-icons">edit</i>
+                        </IconButton>
+                        <IconButton
+                          style={{ color: "rgba(255, 255, 255, 0.54)" }}
+                          onClick={() =>
+                            props.deleteExercise(
+                              { access_token: props.token },
+                              exercise.id
+                            )
+                          }
+                        >
+                          <i className="material-icons">delete</i>
+                        </IconButton>
+                      </div>
+                    }
+                  ></GridListTileBar>
                 </GridListTile>
               ))}
             </GridList>
@@ -118,7 +141,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   getExercises,
   getTrainings,
-  deleteTraining
+  deleteTraining,
+  deleteExercise
 };
 
 export default connect(

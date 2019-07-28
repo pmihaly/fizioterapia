@@ -15,3 +15,12 @@ export const getExercises = userDetails => dispatch => {
     })
     .then(({ data }) => dispatch({ type: GET_EXERCISES, payload: data }));
 };
+
+export const deleteExercise = (userDetails, id) => dispatch => {
+  axios
+    .delete(`${address}/exercises/${id}`, {
+      data: userDetails,
+      headers: { "Content-Type": "application/json" }
+    })
+    .then(id => dispatch({ type: DELETE_EXERCISE, payload: id }));
+};

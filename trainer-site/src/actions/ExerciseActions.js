@@ -7,19 +7,19 @@ export const DELETE_EXERCISE = "DELETE_EXERCISE";
 
 const address = require("../../package.json").proxy;
 
-export const getExercises = userDetails => dispatch => {
+export const getExercises = access_token => dispatch => {
   axios
     .get(`${address}/exercises`, {
-      params: userDetails,
+      params: { access_token },
       headers: { "Content-Type": "application/json" }
     })
     .then(({ data }) => dispatch({ type: GET_EXERCISES, payload: data }));
 };
 
-export const deleteExercise = (userDetails, id) => dispatch => {
+export const deleteExercise = (access_token, id) => dispatch => {
   axios
     .delete(`${address}/exercises/${id}`, {
-      data: userDetails,
+      data: { access_token },
       headers: { "Content-Type": "application/json" }
     })
     .then(id => dispatch({ type: DELETE_EXERCISE, payload: id }));

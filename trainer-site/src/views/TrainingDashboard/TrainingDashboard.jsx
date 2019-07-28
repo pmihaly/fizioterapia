@@ -1,28 +1,27 @@
+import {
+  GridList,
+  GridListTile,
+  GridListTileBar,
+  IconButton,
+  withStyles
+} from "@material-ui/core";
+import cardImagesStyles from "assets/jss/material-dashboard-react/cardImagesStyles.jsx";
 import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
+import Button from "components/CustomButtons/Button";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getExercises, deleteExercise } from "../../actions/ExerciseActions";
-import { getTrainings, deleteTraining } from "../../actions/TrainingActions";
-import {
-  GridList,
-  GridListTile,
-  GridListTileBar,
-  withStyles,
-  IconButton
-} from "@material-ui/core";
-import cardImagesStyles from "assets/jss/material-dashboard-react/cardImagesStyles.jsx";
-import Button from "components/CustomButtons/Button";
+import { deleteExercise, getExercises } from "../../actions/ExerciseActions";
+import { deleteTraining, getTrainings } from "../../actions/TrainingActions";
 
 const TrainingDashboard = props => {
   useEffect(() => {
-    const access_token = props.token;
-    if (props.exercises.length === 0) props.getExercises({ access_token });
-    if (props.trainings.length === 0) props.getTrainings({ access_token });
+    if (props.exercises.length === 0) props.getExercises(props.token);
+    if (props.trainings.length === 0) props.getTrainings(props.token);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -126,23 +125,24 @@ const TrainingDashboard = props => {
 };
 
 TrainingDashboard.propTypes = {
-  exercise: PropTypes.object.isRequired,
-  token: PropTypes.string.isRequired,
   getExercises: PropTypes.func.isRequired,
-  getTrainings: PropTypes.func.isRequired
+  exercises: PropTypes.object.isRequired,
+  getTrainings: PropTypes.func.isRequired,
+  trainings: PropTypes.object.isRequired,
+  token: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
   exercises: state.exercises.exercises,
-  token: state.auth.authenticatedUser.token,
-  trainings: state.trainings.trainings
+  trainings: state.trainings.trainings,
+  token: state.auth.authenticatedUser.token
 });
 
 const mapDispatchToProps = {
   getExercises,
+  deleteExercise,
   getTrainings,
-  deleteTraining,
-  deleteExercise
+  deleteTraining
 };
 
 export default connect(

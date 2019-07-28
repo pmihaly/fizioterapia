@@ -8,7 +8,13 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getExercises } from "../../actions/ExerciseActions";
 import { getTrainings } from "../../actions/TrainingActions";
-import { GridList, GridListTile, GridListTileBar } from "@material-ui/core";
+import {
+  GridList,
+  GridListTile,
+  GridListTileBar,
+  withStyles
+} from "@material-ui/core";
+import cardImagesStyles from "assets/jss/material-dashboard-react/cardImagesStyles.jsx";
 
 const TrainingDashboard = props => {
   useEffect(() => {
@@ -22,16 +28,22 @@ const TrainingDashboard = props => {
     <GridContainer direction="column" alignItems="center" justify="center">
       <GridItem xs={12} sm={12} md={8}>
         <GridContainer>
-          {props.trainings.map(training => (
-            <Card>
-              <CardHeader>{training.name}</CardHeader>
-              <CardBody>
+          {props.trainings.map((training, index) => (
+            <GridItem xs={12} sm={12} md={4} key={index}>
+              <Card>
                 <img
                   src={`data:image/jpeg;base64, ${training.thumbnail}`}
                   alt={`${training.name} gyakorlatsor képe`}
+                  style={{ display: "block" }}
+                  className={props.classes.cardImgTop}
+                  data-holder-rendered="true"
                 />
-              </CardBody>
-            </Card>
+
+                <CardBody>
+                  <h4>{training.name}</h4>
+                </CardBody>
+              </Card>
+            </GridItem>
           ))}
         </GridContainer>
       </GridItem>
@@ -49,7 +61,7 @@ const TrainingDashboard = props => {
               }}
             >
               {props.exercises.map(exercise => (
-                <GridListTile key={exercise._id}>
+                <GridListTile key={exercise.id}>
                   <img
                     src={`data:image/jpeg;base64, ${exercise.thumbnail}`}
                     alt={`${exercise.name} gyakorlat képe`}
@@ -86,4 +98,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TrainingDashboard);
+)(withStyles(cardImagesStyles)(TrainingDashboard));

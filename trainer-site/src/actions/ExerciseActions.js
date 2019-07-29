@@ -27,6 +27,7 @@ export const createExercise = (access_token, exercise) => dispatch => {
 };
 
 export const deleteExercise = (access_token, id) => dispatch => {
+  console.log({ access_token });
   axios
     .delete(`${address}/exercises/${id}`, {
       data: { access_token },

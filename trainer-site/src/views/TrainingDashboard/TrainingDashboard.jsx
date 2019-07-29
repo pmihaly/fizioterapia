@@ -66,10 +66,7 @@ const TrainingDashboard = props => {
                       <Button
                         color="rose"
                         onClick={() =>
-                          props.deleteTraining(
-                            { access_token: props.token },
-                            training.id
-                          )
+                          props.deleteTraining(props.token, training.id)
                         }
                       >
                         <i className="material-icons">delete</i> törlés
@@ -158,10 +155,7 @@ const TrainingDashboard = props => {
                         <IconButton
                           style={{ color: "rgba(255, 255, 255, 0.54)" }}
                           onClick={() =>
-                            props.deleteExercise(
-                              { access_token: props.token },
-                              exercise.id
-                            )
+                            props.deleteExercise(props.token, exercise.id)
                           }
                         >
                           <i className="material-icons">delete</i>

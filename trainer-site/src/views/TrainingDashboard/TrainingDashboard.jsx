@@ -128,12 +128,13 @@ const TrainingDashboard = props => {
                   />
                   <Button
                     color="success"
-                    onClick={() =>
+                    onClick={() => {
                       props.createExercise(props.token, {
                         name: newExercise.exerciseName,
                         youtubeLink: newExercise.youtubeLink
-                      })
-                    }
+                      });
+                      setShowDialogs({ ...showDialogs, newExercise: false });
+                    }}
                   >
                     <i className="material-icons">save</i> Gyakorlat rögzítése
                   </Button>

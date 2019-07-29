@@ -1,4 +1,8 @@
 import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   GridList,
   GridListTile,
   GridListTileBar,
@@ -13,7 +17,7 @@ import Button from "components/CustomButtons/Button";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { deleteExercise, getExercises } from "../../actions/ExerciseActions";
 import { deleteTraining, getTrainings } from "../../actions/TrainingActions";
@@ -24,6 +28,8 @@ const TrainingDashboard = props => {
     if (props.trainings.length === 0) props.getTrainings(props.token);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const [showDialogs, setShowDialogs] = useState({ newExercise: false });
 
   return (
     <GridContainer direction="column" alignItems="center" justify="center">
@@ -76,6 +82,20 @@ const TrainingDashboard = props => {
         <Card>
           <CardHeader color="primary">
             <h4>Elérhető gyakorlatok</h4>
+            <Dialog open={showDialogs.newExercise}>
+              <DialogTitle>Új gyakorlat</DialogTitle>
+              <DialogContent></DialogContent>
+              <DialogActions>
+                <Button
+                  color="danger"
+                  onClick={() =>
+                    setShowDialogs({ ...showDialogs, newExercise: false })
+                  }
+                >
+                  <i className="material-icons">close</i> Mégse
+                </Button>
+              </DialogActions>
+            </Dialog>
           </CardHeader>
           <CardBody>
             <GridList
@@ -85,6 +105,37 @@ const TrainingDashboard = props => {
                 transform: "translateZ(0)"
               }}
             >
+              <GridListTile>
+                <Card>
+                  <CardBody color="success">
+                    <GridContainer
+                      direction="column"
+                      alignItems="center"
+                      justify="center"
+                    >
+                      <GridItem>
+                        <Button
+                          justIcon
+                          round
+                          color="success"
+                          onClick={() =>
+                            setShowDialogs({
+                              ...showDialogs,
+                              newExercise: true
+                            })
+                          }
+                        >
+                          <i className="material-icons">add</i>
+                        </Button>
+                      </GridItem>
+                      <GridItem>
+                        <h4 color="success">Gyakorlat hozzáadása</h4>
+                      </GridItem>
+                    </GridContainer>
+                  </CardBody>
+                </Card>
+              </GridListTile>
+
               {props.exercises.map(exercise => (
                 <GridListTile key={exercise.id}>
                   <img

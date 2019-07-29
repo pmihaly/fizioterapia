@@ -1,8 +1,5 @@
 import {
   Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   GridList,
   GridListTile,
   GridListTileBar,
@@ -14,15 +11,16 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import Button from "components/CustomButtons/Button";
+import CustomInput from "components/CustomInput/CustomInput";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
+  createExercise,
   deleteExercise,
-  getExercises,
-  createExercise
+  getExercises
 } from "../../actions/ExerciseActions";
 import { deleteTraining, getTrainings } from "../../actions/TrainingActions";
 
@@ -34,6 +32,14 @@ const TrainingDashboard = props => {
   }, []);
 
   const [showDialogs, setShowDialogs] = useState({ newExercise: false });
+  const [newExercise, setNewExercise] = useState({
+    exerciseName: "",
+    youtubeLink: ""
+  });
+
+  const handleNewExerciseInput = e => {
+    setNewExercise({ ...newExercise, [e.target.id]: e.target.value });
+  };
 
   return (
     <GridContainer direction="column" alignItems="center" justify="center">
@@ -83,19 +89,64 @@ const TrainingDashboard = props => {
         <Card>
           <CardHeader color="primary">
             <h4>Elérhető gyakorlatok</h4>
+            <p>
+              Shift + görgetéssel tudsz oldalra görgetni a görgetősáv
+              hansználata nélkül
+            </p>
+
             <Dialog open={showDialogs.newExercise}>
-              <DialogTitle>Új gyakorlat</DialogTitle>
-              <DialogContent></DialogContent>
-              <DialogActions>
-                <Button
-                  color="danger"
-                  onClick={() =>
-                    setShowDialogs({ ...showDialogs, newExercise: false })
-                  }
-                >
-                  <i className="material-icons">close</i> Mégse
-                </Button>
-              </DialogActions>
+              <Card>
+                <CardHeader color="primary">
+                  <h4>Új gyakorlat</h4>
+                </CardHeader>
+                <CardBody>
+                  <CustomInput
+                    labelText="Gyakorlat neve"
+                    id="exerciseName"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      onChange: handleNewExerciseInput
+                    }}
+                  />
+                  <CustomInput
+                    labelText="Gyakorlatot bemutató YouTube videó linkje"
+                    id="youtubeLink"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    error={
+                      !newExercise.youtubeLink.match(
+                        // eslint-disable-next-line no-useless-escape
+                        /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/
+                      ) && !!newExercise.youtubeLink
+                    }
+                    inputProps={{
+                      onChange: handleNewExerciseInput
+                    }}
+                  />
+                  <Button
+                    color="success"
+                    onClick={() =>
+                      props.createExercise(props.token, {
+                        name: newExercise.exerciseName,
+                        youtubeLink: newExercise.youtubeLink
+                      })
+                    }
+                  >
+                    <i className="material-icons">save</i> Gyakorlat rögzítése
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      setShowDialogs({ ...showDialogs, newExercise: false })
+                    }
+                  >
+                    <i className="material-icons">close</i> Mégse
+                  </Button>
+                </CardBody>
+              </Card>
             </Dialog>
           </CardHeader>
           <CardBody>

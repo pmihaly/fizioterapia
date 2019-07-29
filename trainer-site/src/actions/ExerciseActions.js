@@ -23,11 +23,10 @@ export const createExercise = (access_token, exercise) => dispatch => {
       { access_token, ...exercise },
       { headers: { "Content-Type": "application/json" } }
     )
-    .then(res => dispatch({ type: CREATE_EXERCISE, payload: res }));
+    .then(({ data }) => dispatch({ type: CREATE_EXERCISE, payload: data }));
 };
 
 export const deleteExercise = (access_token, id) => dispatch => {
-  console.log({ access_token });
   axios
     .delete(`${address}/exercises/${id}`, {
       data: { access_token },

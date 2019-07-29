@@ -19,7 +19,11 @@ import GridItem from "components/Grid/GridItem.jsx";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { deleteExercise, getExercises } from "../../actions/ExerciseActions";
+import {
+  deleteExercise,
+  getExercises,
+  createExercise
+} from "../../actions/ExerciseActions";
 import { deleteTraining, getTrainings } from "../../actions/TrainingActions";
 
 const TrainingDashboard = props => {
@@ -191,6 +195,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   getExercises,
+  createExercise,
   deleteExercise,
   getTrainings,
   deleteTraining

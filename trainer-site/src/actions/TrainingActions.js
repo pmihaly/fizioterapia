@@ -16,6 +16,16 @@ export const getTrainings = access_token => dispatch => {
     .then(({ data }) => dispatch({ type: GET_TRAININGS, payload: data }));
 };
 
+export const createTraining = (access_token, training) => dispatch => {
+  axios.post(
+    `${address}/address`,
+    { access_token, ...training },
+    { headers: { "Content-Type": "application/json" } }.then(({ data }) =>
+      dispatch({ type: CREATE_TRAINING, payload: data })
+    )
+  );
+};
+
 export const deleteTraining = (access_token, id) => dispatch => {
   axios
     .delete(`${address}/trainings/${id}`, {

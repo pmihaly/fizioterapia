@@ -1,26 +1,15 @@
 import { success, notFound, authorOrAdmin } from "../../services/response/";
 import { Exercise } from ".";
-import axios from "axios";
-
-function videoIdToBase64(videoId) {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(`https://img.youtube.com/vi/${videoId}/0.jpg`, {
-        responseType: "arraybuffer"
-      })
-      .then(img => resolve(Buffer.from(img.data).toString("base64")));
-  });
-}
 
 export const create = ({ user, bodymen: { body } }, res, next) => {
-  const videoId = body.youtubeLink.split("v=")[1];
-  videoIdToBase64(videoId).then(thumbnail => {
-    body.thumbnail = thumbnail;
-    Exercise.create({ ...body, trainer: user })
-      .then(exercise => exercise.view(true))
-      .then(success(res, 201))
-      .catch(next);
-  });
+  body.thumbnail = `https://img.youtube.com/vi/${
+    body.youtubeLink.split("v=")[1]
+  }/hqdefault.jpg`;
+
+  Exercise.create({ ...body, trainer: user })
+    .then(exercise => exercise.view(true))
+    .then(success(res, 201))
+    .catch(next);
 };
 
 export const index = (

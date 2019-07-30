@@ -49,7 +49,7 @@ const TrainingDashboard = props => {
             <GridItem xs={12} sm={12} md={4} key={index}>
               <Card>
                 <img
-                  src={`data:image/jpeg;base64, ${training.thumbnail}`}
+                  src={training.thumbnail}
                   alt={`${training.name} gyakorlatsor képe`}
                   style={{ display: "block" }}
                   className={props.classes.cardImgTop}
@@ -192,7 +192,7 @@ const TrainingDashboard = props => {
               {props.exercises.map(exercise => (
                 <GridListTile key={exercise.id}>
                   <img
-                    src={`data:image/jpeg;base64, ${exercise.thumbnail}`}
+                    src={exercise.thumbnail}
                     alt={`${exercise.name} gyakorlat képe`}
                   />
                   <GridListTileBar

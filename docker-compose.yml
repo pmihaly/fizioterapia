@@ -1,0 +1,18 @@
+version: "2.1"
+
+services:
+  fizioterapia:
+    image: fizioterapia
+    build: .
+    environment:
+      NODE_ENV: production
+      MASTER_KEY: cica
+      JWT_SECRET: kutya
+    ports:
+      - 8080:8080
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - 27017:27017

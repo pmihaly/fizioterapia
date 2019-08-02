@@ -23,10 +23,10 @@ RUN npm run preinstall
 COPY . .
 
 # API-szerver portját a tornász oldalnak is ismernie kell
-RUN sed -i "s/localhost:9000/localhost:8080/" trainer-site/package.json
+RUN sed -i "s/localhost:9000/localhost:80/" trainer-site/package.json
 
 # Az API-szerver portját használjuk a gazda gépen is
-EXPOSE 8080
+EXPOSE 80
 
 # Futtassuk a szervert
 CMD npm start

@@ -8,8 +8,9 @@ services:
       NODE_ENV: production
       MASTER_KEY: cica
       JWT_SECRET: kutya
+      PORT: 80
     ports:
-      - 8080:8080
+      - 80:80
 
   mongo:
     container_name: mongo

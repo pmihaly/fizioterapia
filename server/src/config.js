@@ -39,7 +39,7 @@ const config = {
   test: {},
   development: {
     mongo: {
-      uri: "mongodb://mongo/fizioterapia-api-dev",
+      uri: "mongodb://localhost/fizioterapia-api-dev",
       options: {
         debug: true
       }

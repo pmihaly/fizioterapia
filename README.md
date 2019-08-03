@@ -37,9 +37,9 @@ Fizioterápia alkalmazás API szerver- és tornász oldala
 
 ## Fejlesztési környezet létrehozása
 
-Így futtatsd a letöltött forráskódot.
+Így futtatsd a szervert fejlesztési célból.
 
-_A fejlesztői verzió nem számít production buildnek. A kész kiszolgáló futtatásához lásd lejjebb._
+_A fejlesztői verzió nem számít production buildnek. A kész kiszolgáló futtatásához lásd: [Végleges build](#végleges-build)._
 
 ### Kellékek
 
@@ -49,13 +49,13 @@ _A fejlesztői verzió nem számít production buildnek. A kész kiszolgáló fu
 
 ### Telepítés
 
-1. Klónold a repot
+1. Klónozd le a repot
 
 ```sh
 git clone https://github.com/pmihaly/fizioterapia.git
 ```
 
-2. NPM csomagok telepítése
+2. Telepítsd az NPM csomagokat
 
 ```sh
 npm install
@@ -64,14 +64,14 @@ npm install
 A repo gyökérmappájában található package.json fájl a `preinstall` script miatt létezik.
 Ezt a scriptet elvileg nem kell manuálisan futtatnod; egy `npm install` parancs elött indul el.
 
-3. Tetszőleges biztonsági kulcsok megadása a `server/.env` fájlban
+3. Adj meg tetsztőleges biztonsági kulcsokat a `server/.env` fájlban
 
 ```
 MASTER_KEY=NagYoN_BiztonSÁgosKulC5
 JWT_SECRET=UwUROwORMwM
 ```
 
-3. Indítás
+3. Indítsd el a szervert
 
 ```sh
 npm run dev
@@ -86,10 +86,11 @@ A production buildhez [Docker](https://www.docker.com)t használunk, hogy ne kel
 ### Kellékek
 
 - Docker
+- `docker-compose`
 
 ### Telepítés
 
-1. Környezeti változók megadása a `docker-compose.yml` fájlban:
+1. Add meg a biztonsági kulcsokat a `docker-compose.yml` fájlban:
 
 ```yaml
 [...]
@@ -100,7 +101,7 @@ A production buildhez [Docker](https://www.docker.com)t használunk, hogy ne kel
     [...]
 ```
 
-1. Docker konténer létrehozása és futtatása:
+2. Futtatsd a docker konténert:
 
 ```sh
 docker-compose up
@@ -108,9 +109,9 @@ docker-compose up
 
 ### Telepítés után
 
-1. Tűzfal telepítése
-1. `80`-s port továbbítása, tűzfal kivételhez adása
-1. Automatikus klónozás beállítása git hookokkal
+1. Telepíts egy tűzfalat
+1. **Továbbítsd a 80-s portot** és add hozzá a tűzfal-kivételekhez
+1. Állítsd be automatikus git pull-t
 
 <!-- Tervek -->
 
@@ -122,7 +123,7 @@ Lásd: [MeisterTask tábla](https://www.meistertask.com/app/project/gupWLqbM/fiz
 
 ## Licensz
 
-Apache licensz alatt forgalmazva, lásd: LICENSE
+CC BY-NC-ND 4.0 alatt licenszelve, továbbiakért lásd: [https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode)
 
 <!-- Elérhetőségek -->
 
@@ -130,4 +131,4 @@ Apache licensz alatt forgalmazva, lásd: LICENSE
 
 Papp Mihály - papp.misi@protonmail.com, https://github.com/pmihaly
 
-Project Link: https://github.com/pmihaly/fizioterapia
+Projekt link: https://github.com/pmihaly/fizioterapia

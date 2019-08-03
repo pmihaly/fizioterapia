@@ -71,6 +71,8 @@ MASTER_KEY=NagYoN_BiztonSÁgosKulC5
 JWT_SECRET=UwUROwORMwM
 ```
 
+[Mik ezek a kulcsok?](#környezeti-változók)
+
 3. Indítsd el a szervert
 
 ```sh
@@ -81,7 +83,7 @@ npm run dev
 
 ## Végleges build
 
-A production buildhez [Docker](https://www.docker.com)t használunk, hogy ne kelljen sokat macerálni a telepítéssel.
+A production buildhez [Docker](https://www.docker.com)t használunk, hogy ne kelljen sokat macerálni a telepítésekkel.
 
 ### Kellékek
 
@@ -90,7 +92,7 @@ A production buildhez [Docker](https://www.docker.com)t használunk, hogy ne kel
 
 ### Telepítés
 
-1. Add meg a biztonsági kulcsokat a `docker-compose.yml` fájlban:
+1. Add meg a biztonsági kulcsokat környezeti változóként a `docker-compose.yml` fájlban:
 
 ```yaml
 [...]
@@ -101,10 +103,23 @@ A production buildhez [Docker](https://www.docker.com)t használunk, hogy ne kel
     [...]
 ```
 
+#### Környezeti változók
+
+| Környezeti változó neve | Mire használjuk?                                              |
+| ----------------------- | ------------------------------------------------------------- |
+| `MASTER_KEY`            | Ez az admin kulcs, ezzel tudunk a tornászok fölött adminkodni |
+| `JWT_SECRET`            | Ezzel titkosítjuk a regisztrált felhasználók jelszavát        |
+
 2. Futtatsd a docker konténert:
 
 ```sh
 docker-compose up
+```
+
+Akkor látogatható a tornász oldal, ha a kimenet utolsó sora így néz ki:
+
+```
+fizioterapia_1  | [1] npm run build-trainer exited with code 0
 ```
 
 ### Telepítés után

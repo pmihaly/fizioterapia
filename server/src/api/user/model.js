@@ -34,7 +34,11 @@ const userSchema = new Schema(
     picture: {
       type: String,
       trim: true
-    }
+    },
+    patients: {
+      type: [{ type: Schema.Types.ObjectId, ref: "users" }]
+    },
+    trainer: { type: Schema.Types.ObjectId, ref: "users", default: null }
   },
   {
     timestamps: true
@@ -78,7 +82,7 @@ userSchema.methods = {
     let fields = ["id", "name", "picture"];
 
     if (full) {
-      fields = [...fields, "email", "createdAt"];
+      fields = [...fields, "email", "createdAt", "patients", "trainer"];
     }
 
     fields.forEach(field => {

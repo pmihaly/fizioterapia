@@ -38,7 +38,8 @@ const userSchema = new Schema(
     patients: {
       type: [{ type: Schema.Types.ObjectId, ref: "users" }]
     },
-    trainer: { type: Schema.Types.ObjectId, ref: "users", default: null }
+    trainer: { type: Schema.Types.ObjectId, ref: "users", default: null },
+    trainerDescription: { type: String, trim: true }
   },
   {
     timestamps: true
@@ -79,7 +80,7 @@ userSchema.pre("save", function(next) {
 userSchema.methods = {
   view(full) {
     let view = {};
-    let fields = ["id", "name", "picture"];
+    let fields = ["id", "name", "picture", "trainerDescription"];
 
     if (full) {
       fields = [...fields, "email", "createdAt", "patients", "trainer"];

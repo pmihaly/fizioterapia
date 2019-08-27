@@ -23,6 +23,10 @@ const trainingSchema = new Schema(
           number: Number
         }
       ]
+    },
+    description: {
+      type: String,
+      trim: true
     }
   },
   {
@@ -46,7 +50,8 @@ trainingSchema.methods = {
       patient: this.patient,
       exercises: this.exercises,
       createdAt: this.createdAt,
-      updatedAt: this.updatedAt
+      updatedAt: this.updatedAt,
+      description: this.description
     };
 
     return full

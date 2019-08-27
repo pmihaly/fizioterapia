@@ -15,6 +15,10 @@ const exerciseSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true
+    },
+    description: {
+      type: String,
+      trim: true
     }
   },
   {
@@ -37,7 +41,8 @@ exerciseSchema.methods = {
       thumbnail: this.thumbnail,
       youtubeLink: this.youtubeLink,
       createdAt: this.createdAt,
-      updatedAt: this.updatedAt
+      updatedAt: this.updatedAt,
+      description: this.description
     };
 
     return full

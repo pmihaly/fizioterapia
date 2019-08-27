@@ -1,13 +1,13 @@
-import { Router } from 'express'
-import { middleware as query } from 'querymen'
-import { middleware as body } from 'bodymen'
-import { token } from '../../services/passport'
-import { create, index, show, update, destroy } from './controller'
-import { schema } from './model'
-export Exercise, { schema } from './model'
+import { Router } from "express";
+import { middleware as query } from "querymen";
+import { middleware as body } from "bodymen";
+import { token } from "../../services/passport";
+import { create, index, show, update, destroy } from "./controller";
+import { schema } from "./model";
+export Exercise, { schema } from "./model";
 
-const router = new Router()
-const { name, thumbnail, youtubeLink } = schema.tree
+const router = new Router();
+const { name, thumbnail, youtubeLink, description } = schema.tree;
 
 /**
  * @api {post} /exercises Create exercise
@@ -23,10 +23,12 @@ const { name, thumbnail, youtubeLink } = schema.tree
  * @apiError 404 Exercise not found.
  * @apiError 401 admin access only.
  */
-router.post('/',
-  token({ required: true, roles: ['admin'] }),
-  body({ name, thumbnail, youtubeLink }),
-  create)
+router.post(
+  "/",
+  token({ required: true, roles: ["admin"] }),
+  body({ name, thumbnail, youtubeLink, description }),
+  create
+);
 
 /**
  * @api {get} /exercises Retrieve exercises
@@ -39,10 +41,7 @@ router.post('/',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 401 user access only.
  */
-router.get('/',
-  token({ required: true }),
-  query(),
-  index)
+router.get("/", token({ required: true }), query(), index);
 
 /**
  * @api {get} /exercises/:id Retrieve exercise
@@ -55,9 +54,7 @@ router.get('/',
  * @apiError 404 Exercise not found.
  * @apiError 401 user access only.
  */
-router.get('/:id',
-  token({ required: true }),
-  show)
+router.get("/:id", token({ required: true }), show);
 
 /**
  * @api {put} /exercises/:id Update exercise
@@ -73,10 +70,12 @@ router.get('/:id',
  * @apiError 404 Exercise not found.
  * @apiError 401 admin access only.
  */
-router.put('/:id',
-  token({ required: true, roles: ['admin'] }),
-  body({ name, thumbnail, youtubeLink }),
-  update)
+router.put(
+  "/:id",
+  token({ required: true, roles: ["admin"] }),
+  body({ name, thumbnail, youtubeLink, description }),
+  update
+);
 
 /**
  * @api {delete} /exercises/:id Delete exercise
@@ -88,8 +87,6 @@ router.put('/:id',
  * @apiError 404 Exercise not found.
  * @apiError 401 admin access only.
  */
-router.delete('/:id',
-  token({ required: true, roles: ['admin'] }),
-  destroy)
+router.delete("/:id", token({ required: true, roles: ["admin"] }), destroy);
 
-export default router
+export default router;

@@ -13,8 +13,8 @@ const { name, thumbnail, patient, exercises, description } = schema.tree;
  * @api {post} /trainings Create training
  * @apiName CreateTraining
  * @apiGroup Training
- * @apiPermission admin
- * @apiParam {String} access_token admin access token.
+ * @apiPermission trainer
+ * @apiParam {String} access_token trainer access token.
  * @apiParam name Training's name.
  * @apiParam thumbnail Training's thumbnail.
  * @apiParam patient Training's patient.
@@ -22,11 +22,11 @@ const { name, thumbnail, patient, exercises, description } = schema.tree;
  * @apiSuccess {Object} training Training's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Training not found.
- * @apiError 401 admin access only.
+ * @apiError 401 trainer access only.
  */
 router.post(
   "/",
-  token({ required: true, roles: ["admin"] }),
+  token({ required: true, roles: ["trainer"] }),
   body({ name, thumbnail, patient, exercises, description }),
   create
 );
@@ -61,8 +61,8 @@ router.get("/:id", token({ required: true }), show);
  * @api {put} /trainings/:id Update training
  * @apiName UpdateTraining
  * @apiGroup Training
- * @apiPermission admin
- * @apiParam {String} access_token admin access token.
+ * @apiPermission trainer
+ * @apiParam {String} access_token trainer access token.
  * @apiParam name Training's name.
  * @apiParam thumbnail Training's thumbnail.
  * @apiParam patient Training's patient.
@@ -70,11 +70,11 @@ router.get("/:id", token({ required: true }), show);
  * @apiSuccess {Object} training Training's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Training not found.
- * @apiError 401 admin access only.
+ * @apiError 401 trainer access only.
  */
 router.put(
   "/:id",
-  token({ required: true, roles: ["admin"] }),
+  token({ required: true, roles: ["trainer"] }),
   body({ name, thumbnail, patient, exercises, description }),
   update
 );
@@ -83,12 +83,12 @@ router.put(
  * @api {delete} /trainings/:id Delete training
  * @apiName DeleteTraining
  * @apiGroup Training
- * @apiPermission admin
- * @apiParam {String} access_token admin access token.
+ * @apiPermission trainer
+ * @apiParam {String} access_token trainer access token.
  * @apiSuccess (Success 204) 204 No Content.
  * @apiError 404 Training not found.
- * @apiError 401 admin access only.
+ * @apiError 401 trainer access only.
  */
-router.delete("/:id", token({ required: true, roles: ["admin"] }), destroy);
+router.delete("/:id", token({ required: true, roles: ["trainer"] }), destroy);
 
 export default router;

@@ -4,7 +4,7 @@ import mongoose, { Schema } from "mongoose";
 import mongooseKeywords from "mongoose-keywords";
 import { env } from "../../config";
 
-const roles = ["user", "admin"];
+const roles = ["user", "trainer"];
 
 const userSchema = new Schema(
   {
@@ -39,7 +39,7 @@ const userSchema = new Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "users" }]
     },
     trainer: { type: Schema.Types.ObjectId, ref: "users", default: null },
-    trainerDescription: { type: String, trim: true }
+    trainerDescription: { type: String, trim: true, default: "" }
   },
   {
     timestamps: true
@@ -80,7 +80,7 @@ userSchema.pre("save", function(next) {
 userSchema.methods = {
   view(full) {
     let view = {};
-    let fields = ["id", "name", "picture", "trainerDescription"];
+    let fields = ["id", "name", "picture", "role", "trainerDescription"];
 
     if (full) {
       fields = [...fields, "email", "createdAt", "patients", "trainer"];

@@ -42,7 +42,7 @@ export const update = ({ bodymen: { body }, params, user }, res, next) =>
     .then(notFound(res))
     .then(result => {
       if (!result) return null;
-      const isAdmin = user.role === "admin";
+      const isAdmin = user.role === "trainer";
       const isSelfUpdate = user.id === result.id;
       if (!isSelfUpdate && !isAdmin) {
         res.status(401).json({

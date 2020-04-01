@@ -1,25 +1,25 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 const exerciseSchema = new Schema(
   {
     name: {
-      type: String
+      type: String,
     },
     thumbnail: {
-      type: String
+      type: String,
     },
     youtubeLink: {
-      type: String
+      type: String,
     },
     trainer: {
       type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true
+      ref: 'User',
+      required: true,
     },
     description: {
       type: String,
-      trim: true
-    }
+      trim: true,
+    },
   },
   {
     timestamps: true,
@@ -27,8 +27,8 @@ const exerciseSchema = new Schema(
       virtuals: true,
       transform: (obj, ret) => {
         delete ret._id;
-      }
-    }
+      },
+    },
   }
 );
 
@@ -42,19 +42,19 @@ exerciseSchema.methods = {
       youtubeLink: this.youtubeLink,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
-      description: this.description
+      description: this.description,
     };
 
     return full
       ? {
-          ...view
+          ...view,
           // add properties for a full view
         }
       : view;
-  }
+  },
 };
 
-const model = mongoose.model("Exercise", exerciseSchema);
+const model = mongoose.model('Exercise', exerciseSchema);
 
 export const schema = model.schema;
 export default model;

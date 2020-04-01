@@ -1,12 +1,7 @@
-import {
-  LOG_IN,
-  REGISTER,
-  LOG_IN_WITH_USER,
-  LOG_OUT
-} from "../actions/AuthActions";
+import { LOG_IN, REGISTER, LOG_IN_WITH_USER, LOG_OUT } from '../actions/AuthActions';
 
 const initialState = {
-  authenticatedUser: {}
+  authenticatedUser: {},
 };
 
 export default (state = initialState, { type, payload }) => {

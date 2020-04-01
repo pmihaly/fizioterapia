@@ -1,33 +1,33 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 const trainingSchema = new Schema(
   {
     name: {
-      type: String
+      type: String,
     },
     thumbnail: {
-      type: String
+      type: String,
     },
     patient: {
-      type: [{ type: Schema.Types.ObjectId, ref: "users" }]
+      type: [{ type: Schema.Types.ObjectId, ref: 'users' }],
     },
     trainer: {
       type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true
+      ref: 'User',
+      required: true,
     },
     exercises: {
       type: [
         {
-          id: { type: Schema.Types.ObjectId, ref: "exercises" },
-          number: Number
-        }
-      ]
+          id: { type: Schema.Types.ObjectId, ref: 'exercises' },
+          number: Number,
+        },
+      ],
     },
     description: {
       type: String,
-      trim: true
-    }
+      trim: true,
+    },
   },
   {
     timestamps: true,
@@ -35,8 +35,8 @@ const trainingSchema = new Schema(
       virtuals: true,
       transform: (obj, ret) => {
         delete ret._id;
-      }
-    }
+      },
+    },
   }
 );
 
@@ -51,19 +51,19 @@ trainingSchema.methods = {
       exercises: this.exercises,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
-      description: this.description
+      description: this.description,
     };
 
     return full
       ? {
-          ...view
+          ...view,
           // add properties for a full view
         }
       : view;
-  }
+  },
 };
 
-const model = mongoose.model("Training", trainingSchema);
+const model = mongoose.model('Training', trainingSchema);
 
 export const schema = model.schema;
 export default model;

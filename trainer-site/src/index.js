@@ -1,17 +1,17 @@
-import "assets/css/material-dashboard-react.css?v=1.7.0";
-import { createBrowserHistory } from "history";
-import GuestLayout from "layouts/GuestLayout";
-import TrainerLayout from "layouts/TrainerLayout.jsx";
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { Route, Router, Switch } from "react-router-dom";
-import errorReducer from "reducers/ErrorReducer";
-import ExerciseReducer from "reducers/ExerciseReducer";
-import TrainingsReducer from "reducers/TrainingsReducer";
-import { applyMiddleware, combineReducers, compose, createStore } from "redux";
-import thunk from "redux-thunk";
-import authReducer from "./reducers/AuthReducer";
+import 'assets/css/material-dashboard-react.css?v=1.7.0';
+import { createBrowserHistory } from 'history';
+import GuestLayout from 'layouts/GuestLayout';
+import TrainerLayout from 'layouts/TrainerLayout.jsx';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { Route, Router, Switch } from 'react-router-dom';
+import errorReducer from 'reducers/ErrorReducer';
+import ExerciseReducer from 'reducers/ExerciseReducer';
+import TrainingsReducer from 'reducers/TrainingsReducer';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import thunk from 'redux-thunk';
+import authReducer from './reducers/AuthReducer';
 
 const hist = createBrowserHistory();
 
@@ -19,7 +19,7 @@ const allReducers = combineReducers({
   auth: authReducer,
   error: errorReducer,
   exercises: ExerciseReducer,
-  trainings: TrainingsReducer
+  trainings: TrainingsReducer,
 });
 
 const allStoreEnhancers = compose(
@@ -38,5 +38,5 @@ ReactDOM.render(
       </Switch>
     </Router>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

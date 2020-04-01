@@ -1,36 +1,36 @@
-import withStyles from "@material-ui/core/styles/withStyles";
-import Error from "@material-ui/icons/Error";
-import Card from "components/Card/Card.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import Button from "components/CustomButtons/Button.jsx";
-import CustomInput from "components/CustomInput/CustomInput";
-import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem.jsx";
-import Snackbar from "components/Snackbar/Snackbar.jsx";
-import PropTypes from "prop-types";
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { logIn, register } from "../../actions/AuthActions";
+import withStyles from '@material-ui/core/styles/withStyles';
+import Error from '@material-ui/icons/Error';
+import Card from 'components/Card/Card.jsx';
+import CardBody from 'components/Card/CardBody.jsx';
+import CardFooter from 'components/Card/CardFooter.jsx';
+import CardHeader from 'components/Card/CardHeader.jsx';
+import Button from 'components/CustomButtons/Button.jsx';
+import CustomInput from 'components/CustomInput/CustomInput';
+import GridContainer from 'components/Grid/GridContainer.jsx';
+import GridItem from 'components/Grid/GridItem.jsx';
+import Snackbar from 'components/Snackbar/Snackbar.jsx';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { logIn, register } from '../../actions/AuthActions';
 
-const Authenticate = props => {
+const Authenticate = (props) => {
   const [registration, setRegistration] = useState({
-    email: "",
-    name: "",
-    password: "",
-    passwordVerification: "",
-    description: ""
+    email: '',
+    name: '',
+    password: '',
+    passwordVerification: '',
+    description: '',
   });
 
-  const [login, setLogin] = useState({ loginEmail: "", loginPassword: "" });
+  const [login, setLogin] = useState({ loginEmail: '', loginPassword: '' });
 
-  const handleRegistrationInput = e => {
+  const handleRegistrationInput = (e) => {
     setRegistration({ ...registration, [e.target.id]: e.target.value });
   };
 
-  const handleLoginInput = e => {
+  const handleLoginInput = (e) => {
     setLogin({ ...login, [e.target.id]: e.target.value });
   };
 
@@ -48,9 +48,7 @@ const Authenticate = props => {
         <Card>
           <CardHeader color="primary">
             <h4 className={props.classes.cardTitleWhite}>Regisztráció</h4>
-            <p className={props.classes.cardCategoryWhite}>
-              Hozz létre egy új tornász fiókot
-            </p>
+            <p className={props.classes.cardCategoryWhite}>Hozz létre egy új tornász fiókot</p>
           </CardHeader>
           <CardBody>
             <GridContainer>
@@ -65,11 +63,11 @@ const Authenticate = props => {
                     ) && !!registration.email
                   }
                   formControlProps={{
-                    fullWidth: true
+                    fullWidth: true,
                   }}
                   inputProps={{
-                    type: "email",
-                    onChange: handleRegistrationInput
+                    type: 'email',
+                    onChange: handleRegistrationInput,
                   }}
                 />
               </GridItem>
@@ -77,11 +75,11 @@ const Authenticate = props => {
                 <CustomInput
                   labelText="Megjelenített név"
                   formControlProps={{
-                    fullWidth: true
+                    fullWidth: true,
                   }}
                   id="name"
                   inputProps={{
-                    onChange: handleRegistrationInput
+                    onChange: handleRegistrationInput,
                   }}
                 />
               </GridItem>
@@ -91,15 +89,13 @@ const Authenticate = props => {
                 <CustomInput
                   labelText="Jelszó"
                   formControlProps={{
-                    fullWidth: true
+                    fullWidth: true,
                   }}
-                  error={
-                    registration.password.length < 6 && registration.password
-                  }
+                  error={registration.password.length < 6 && registration.password}
                   id="password"
                   inputProps={{
-                    type: "password",
-                    onChange: handleRegistrationInput
+                    type: 'password',
+                    onChange: handleRegistrationInput,
                   }}
                 />
               </GridItem>
@@ -107,16 +103,16 @@ const Authenticate = props => {
                 <CustomInput
                   labelText="Jelszó megerősítése"
                   formControlProps={{
-                    fullWidth: true
+                    fullWidth: true,
                   }}
                   id="passwordVerification"
                   error={
-                    registration.passwordVerification !==
-                      registration.password && registration.passwordVerification
+                    registration.passwordVerification !== registration.password &&
+                    registration.passwordVerification
                   }
                   inputProps={{
-                    type: "password",
-                    onChange: handleRegistrationInput
+                    type: 'password',
+                    onChange: handleRegistrationInput,
                   }}
                 />
               </GridItem>
@@ -126,13 +122,13 @@ const Authenticate = props => {
                 <CustomInput
                   labelText="Adj meg egy rövid leírást magadról, hogy könnyebben megtaláljanak a páciensek (Opcionális)"
                   formControlProps={{
-                    fullWidth: true
+                    fullWidth: true,
                   }}
                   id="description"
                   inputProps={{
                     multiline: true,
                     rows: 5,
-                    onChange: handleRegistrationInput
+                    onChange: handleRegistrationInput,
                   }}
                 />
               </GridItem>
@@ -146,7 +142,7 @@ const Authenticate = props => {
                   email: registration.email,
                   name: registration.name,
                   password: registration.password,
-                  description: registration.description
+                  description: registration.description,
                 });
               }}
             >
@@ -166,9 +162,7 @@ const Authenticate = props => {
         <Card>
           <CardHeader color="rose">
             <h4 className={props.classes.cardTitleWhite}>Bejelentkezés</h4>
-            <p className={props.classes.cardCategoryWhite}>
-              Ha már regisztráltál az oldalunkon
-            </p>
+            <p className={props.classes.cardCategoryWhite}>Ha már regisztráltál az oldalunkon</p>
           </CardHeader>
           <CardBody>
             <CustomInput
@@ -181,24 +175,24 @@ const Authenticate = props => {
                 ) && !!login.loginEmail
               }
               formControlProps={{
-                fullWidth: true
+                fullWidth: true,
               }}
               inputProps={{
-                type: "email",
-                onChange: handleLoginInput
+                type: 'email',
+                onChange: handleLoginInput,
               }}
             />
 
             <CustomInput
               labelText="Jelszó"
               formControlProps={{
-                fullWidth: true
+                fullWidth: true,
               }}
               error={login.loginPassword.length < 6 && login.loginPassword}
               id="loginPassword"
               inputProps={{
-                type: "password",
-                onChange: handleLoginInput
+                type: 'password',
+                onChange: handleLoginInput,
               }}
             />
           </CardBody>
@@ -208,7 +202,7 @@ const Authenticate = props => {
               onClick={() => {
                 props.logIn({
                   email: login.loginEmail,
-                  password: login.loginPassword
+                  password: login.loginPassword,
                 });
               }}
             >
@@ -223,69 +217,69 @@ const Authenticate = props => {
 
 const styles = {
   cardCategoryWhite: {
-    "&,& a,& a:hover,& a:focus": {
-      color: "rgba(255,255,255,.62)",
-      margin: "0",
-      fontSize: "14px",
-      marginTop: "0",
-      marginBottom: "0"
+    '&,& a,& a:hover,& a:focus': {
+      color: 'rgba(255,255,255,.62)',
+      margin: '0',
+      fontSize: '14px',
+      marginTop: '0',
+      marginBottom: '0',
     },
-    "& a,& a:hover,& a:focus": {
-      color: "#FFFFFF"
-    }
+    '& a,& a:hover,& a:focus': {
+      color: '#FFFFFF',
+    },
   },
   cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
+    color: '#FFFFFF',
+    marginTop: '0px',
+    minHeight: 'auto',
+    fontWeight: '300',
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none",
-    "& small": {
-      color: "#777",
-      fontSize: "65%",
-      fontWeight: "400",
-      lineHeight: "1"
-    }
+    marginBottom: '3px',
+    textDecoration: 'none',
+    '& small': {
+      color: '#777',
+      fontSize: '65%',
+      fontWeight: '400',
+      lineHeight: '1',
+    },
   },
   tableUpgradeWrapper: {
-    display: "block",
-    width: "100%",
-    overflowX: "auto",
-    WebkitOverflowScrolling: "touch",
-    MsOverflowStyle: "-ms-autohiding-scrollbar"
+    display: 'block',
+    width: '100%',
+    overflowX: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    MsOverflowStyle: '-ms-autohiding-scrollbar',
   },
   table: {
-    width: "100%",
-    maxWidth: "100%",
-    marginBottom: "1rem",
-    backgroundColor: "transparent",
-    borderCollapse: "collapse",
-    display: "table",
-    borderSpacing: "2px",
-    borderColor: "grey",
-    "& thdead tr th": {
-      fontSize: "1.063rem",
-      padding: "12px 8px",
-      verticalAlign: "middle",
-      fontWeight: "300",
-      borderTopWidth: "0",
-      borderBottom: "1px solid rgba(0, 0, 0, 0.06)",
-      textAlign: "inherit"
+    width: '100%',
+    maxWidth: '100%',
+    marginBottom: '1rem',
+    backgroundColor: 'transparent',
+    borderCollapse: 'collapse',
+    display: 'table',
+    borderSpacing: '2px',
+    borderColor: 'grey',
+    '& thdead tr th': {
+      fontSize: '1.063rem',
+      padding: '12px 8px',
+      verticalAlign: 'middle',
+      fontWeight: '300',
+      borderTopWidth: '0',
+      borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+      textAlign: 'inherit',
     },
-    "& tbody tr td": {
-      padding: "12px 8px",
-      verticalAlign: "middle",
-      borderTop: "1px solid rgba(0, 0, 0, 0.06)"
+    '& tbody tr td': {
+      padding: '12px 8px',
+      verticalAlign: 'middle',
+      borderTop: '1px solid rgba(0, 0, 0, 0.06)',
     },
-    "& td, & th": {
-      display: "table-cell"
-    }
+    '& td, & th': {
+      display: 'table-cell',
+    },
   },
   center: {
-    textAlign: "center"
-  }
+    textAlign: 'center',
+  },
 };
 
 Authenticate.propTypes = {
@@ -294,21 +288,18 @@ Authenticate.propTypes = {
   loginError: PropTypes.bool.isRequired,
   registrationError: PropTypes.bool.isRequired,
   logIn: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.auth.authenticatedUser,
   loginError: state.error.loginError,
-  registrationError: state.error.registrationError
+  registrationError: state.error.registrationError,
 });
 
 const mapDispatchToProps = {
   logIn,
-  register
+  register,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Authenticate));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Authenticate));

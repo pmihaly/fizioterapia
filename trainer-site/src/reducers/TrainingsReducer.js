@@ -1,10 +1,6 @@
-import {
-  GET_TRAININGS,
-  DELETE_TRAINING,
-  CREATE_TRAINING
-} from "../actions/TrainingActions";
+import { GET_TRAININGS, DELETE_TRAINING, CREATE_TRAINING } from '../actions/TrainingActions';
 const initialState = {
-  trainings: []
+  trainings: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -18,7 +14,7 @@ export default (state = initialState, { type, payload }) => {
     case DELETE_TRAINING:
       return {
         ...state,
-        trainings: state.trainings.filter(training => training.id !== payload)
+        trainings: state.trainings.filter((training) => training.id !== payload),
       };
 
     default:

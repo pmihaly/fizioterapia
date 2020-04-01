@@ -1,8 +1,8 @@
-import { REGISTRATION_ERROR, LOGIN_ERROR } from "actions/ErrorActions";
+import { REGISTRATION_ERROR, LOGIN_ERROR } from 'actions/ErrorActions';
 
 const initialState = {
   loginError: false,
-  registrationError: false
+  registrationError: false,
 };
 
 export default (state = initialState, { type, payload }) => {

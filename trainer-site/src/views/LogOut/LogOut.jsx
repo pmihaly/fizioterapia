@@ -1,10 +1,10 @@
-import { logOut } from "actions/AuthActions";
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import PropTypes from "prop-types";
+import { logOut } from 'actions/AuthActions';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const LogOut = props => {
+const LogOut = (props) => {
   useEffect(() => {
     props.logOut();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -13,14 +13,11 @@ const LogOut = props => {
 };
 
 LogOut.propTypes = {
-  logOut: PropTypes.func.isRequired
+  logOut: PropTypes.func.isRequired,
 };
 
 const mapActionsToProps = {
-  logOut
+  logOut,
 };
 
-export default connect(
-  null,
-  mapActionsToProps
-)(LogOut);
+export default connect(null, mapActionsToProps)(LogOut);

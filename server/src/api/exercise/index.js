@@ -1,10 +1,10 @@
-import { Router } from "express";
-import { middleware as query } from "querymen";
-import { middleware as body } from "bodymen";
-import { token } from "../../services/passport";
-import { create, index, show, update, destroy } from "./controller";
-import { schema } from "./model";
-export Exercise, { schema } from "./model";
+import { Router } from 'express';
+import { middleware as query } from 'querymen';
+import { middleware as body } from 'bodymen';
+import { token } from '../../services/passport';
+import { create, index, show, update, destroy } from './controller';
+import { schema } from './model';
+export Exercise, { schema } from './model';
 
 const router = new Router();
 const { name, thumbnail, youtubeLink, description } = schema.tree;
@@ -24,8 +24,8 @@ const { name, thumbnail, youtubeLink, description } = schema.tree;
  * @apiError 401 trainer access only.
  */
 router.post(
-  "/",
-  token({ required: true, roles: ["trainer"] }),
+  '/',
+  token({ required: true, roles: ['trainer'] }),
   body({ name, thumbnail, youtubeLink, description }),
   create
 );
@@ -41,7 +41,7 @@ router.post(
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 401 user access only.
  */
-router.get("/", token({ required: true }), query(), index);
+router.get('/', token({ required: true }), query(), index);
 
 /**
  * @api {get} /exercises/:id Retrieve exercise
@@ -54,7 +54,7 @@ router.get("/", token({ required: true }), query(), index);
  * @apiError 404 Exercise not found.
  * @apiError 401 user access only.
  */
-router.get("/:id", token({ required: true }), show);
+router.get('/:id', token({ required: true }), show);
 
 /**
  * @api {put} /exercises/:id Update exercise
@@ -71,8 +71,8 @@ router.get("/:id", token({ required: true }), show);
  * @apiError 401 trainer access only.
  */
 router.put(
-  "/:id",
-  token({ required: true, roles: ["trainer"] }),
+  '/:id',
+  token({ required: true, roles: ['trainer'] }),
   body({ name, thumbnail, youtubeLink, description }),
   update
 );
@@ -87,6 +87,6 @@ router.put(
  * @apiError 404 Exercise not found.
  * @apiError 401 trainer access only.
  */
-router.delete("/:id", token({ required: true, roles: ["trainer"] }), destroy);
+router.delete('/:id', token({ required: true, roles: ['trainer'] }), destroy);
 
 export default router;

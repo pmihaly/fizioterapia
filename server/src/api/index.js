@@ -1,10 +1,10 @@
-import { Router, static as Static } from "express";
-import user from "./user";
-import auth from "./auth";
-import training from "./training";
-import exercise from "./exercise";
+import { Router, static as Static } from 'express';
+import user from './user';
+import auth from './auth';
+import training from './training';
+import exercise from './exercise';
 
-import path from "path";
+import path from 'path';
 
 const router = new Router();
 
@@ -31,22 +31,13 @@ const router = new Router();
  * @apiParam {String[]} [sort=-createdAt] Order of returned items.
  * @apiParam {String[]} [fields] Fields to be returned.
  */
-router.use("/users", user);
-router.use("/auth", auth);
-router.use("/trainings", training);
-router.use("/exercises", exercise);
+router.use('/users', user);
+router.use('/auth', auth);
+router.use('/trainings', training);
+router.use('/exercises', exercise);
 
-const buildDest = path.join(
-  __dirname,
-  "..",
-  "..",
-  "..",
-  "trainer-site",
-  "build"
-);
+const buildDest = path.join(__dirname, '..', '..', '..', 'trainer-site', 'build');
 router.use(Static(buildDest));
-router.get("/*", (req, res) =>
-  res.sendFile(path.join(buildDest, "index.html"))
-);
+router.get('/*', (req, res) => res.sendFile(path.join(buildDest, 'index.html')));
 
 export default router;

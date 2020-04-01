@@ -1,10 +1,6 @@
-import {
-  GET_EXERCISES,
-  DELETE_EXERCISE,
-  CREATE_EXERCISE
-} from "../actions/ExerciseActions";
+import { GET_EXERCISES, DELETE_EXERCISE, CREATE_EXERCISE } from '../actions/ExerciseActions';
 const initialState = {
-  exercises: []
+  exercises: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -18,7 +14,7 @@ export default (state = initialState, { type, payload }) => {
     case DELETE_EXERCISE:
       return {
         ...state,
-        exercises: state.exercises.filter(exercise => exercise.id !== payload)
+        exercises: state.exercises.filter((exercise) => exercise.id !== payload),
       };
 
     default:

@@ -1,23 +1,19 @@
-import Card from "components/Card/Card.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import Button from "components/CustomButtons/Button";
-import CustomInput from "components/CustomInput/CustomInput";
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import {
-  createExercise,
-  deleteExercise,
-  getExercises
-} from "../../actions/ExerciseActions";
+import Card from 'components/Card/Card.jsx';
+import CardBody from 'components/Card/CardBody.jsx';
+import CardHeader from 'components/Card/CardHeader.jsx';
+import Button from 'components/CustomButtons/Button';
+import CustomInput from 'components/CustomInput/CustomInput';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { createExercise, deleteExercise, getExercises } from '../../actions/ExerciseActions';
 
-const NewExercise = props => {
+const NewExercise = (props) => {
   const [newExercise, setNewExercise] = useState({
-    exerciseName: "",
-    youtubeLink: ""
+    exerciseName: '',
+    youtubeLink: '',
   });
 
-  const handleNewExerciseInput = e => {
+  const handleNewExerciseInput = (e) => {
     setNewExercise({ ...newExercise, [e.target.id]: e.target.value });
   };
   return (
@@ -30,17 +26,17 @@ const NewExercise = props => {
           labelText="Gyakorlat neve"
           id="exerciseName"
           formControlProps={{
-            fullWidth: true
+            fullWidth: true,
           }}
           inputProps={{
-            onChange: handleNewExerciseInput
+            onChange: handleNewExerciseInput,
           }}
         />
         <CustomInput
           labelText="Gyakorlatot bemutató YouTube videó linkje"
           id="youtubeLink"
           formControlProps={{
-            fullWidth: true
+            fullWidth: true,
           }}
           error={
             !newExercise.youtubeLink.match(
@@ -49,7 +45,7 @@ const NewExercise = props => {
             ) && !!newExercise.youtubeLink
           }
           inputProps={{
-            onChange: handleNewExerciseInput
+            onChange: handleNewExerciseInput,
           }}
         />
         <Button
@@ -57,7 +53,7 @@ const NewExercise = props => {
           onClick={() => {
             props.createExercise(props.token, {
               name: newExercise.exerciseName,
-              youtubeLink: newExercise.youtubeLink
+              youtubeLink: newExercise.youtubeLink,
             });
             props.setShowDialog(false);
           }}
@@ -72,18 +68,15 @@ const NewExercise = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   exercises: state.exercises.exercises,
-  token: state.auth.authenticatedUser.token
+  token: state.auth.authenticatedUser.token,
 });
 
 const mapDispatchToProps = {
   getExercises,
   createExercise,
-  deleteExercise
+  deleteExercise,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewExercise);
+export default connect(mapStateToProps, mapDispatchToProps)(NewExercise);

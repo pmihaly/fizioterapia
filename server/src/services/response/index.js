@@ -1,11 +1,11 @@
-export const success = (res, status) => entity => {
+export const success = (res, status) => (entity) => {
   if (entity) {
     res.status(status || 200).json(entity);
   }
   return null;
 };
 
-export const notFound = res => entity => {
+export const notFound = (res) => (entity) => {
   if (entity) {
     return entity;
   }
@@ -13,9 +13,9 @@ export const notFound = res => entity => {
   return null;
 };
 
-export const authorOrAdmin = (res, user, userField) => entity => {
+export const authorOrAdmin = (res, user, userField) => (entity) => {
   if (entity) {
-    const isAdmin = user.role === "trainer";
+    const isAdmin = user.role === 'trainer';
     const isAuthor = entity[userField] && entity[userField].equals(user.id);
     if (isAuthor || isAdmin) {
       return entity;

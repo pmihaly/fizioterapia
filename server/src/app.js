@@ -7,7 +7,11 @@ import api from './api';
 const app = express(apiRoot, api);
 const server = http.createServer(app);
 
-mongoose.connect(mongo.uri, { useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(mongo.uri, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+});
 mongoose.Promise = Promise;
 
 setImmediate(() => {
